@@ -1,18 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const Todo = require("../../model/TodosModel");
+const validateRegisterTodo = require("../../validation/todo_validation");
 
 router.get("/test", (req, res) => {
     res.json({msg: "this is the note route"});
 });
 
-router.post("/", (req, res) => {
+router.post("/create", (req, res) => {
+    const { errors, isValid } = validateRegisterTodo(req.body);
+
+    if(!isValid) return res.status(400).json(errors)
+
     const newTodo = new Todo({
         description: req.body.description,
         done: false,
         inProgress: false,
-        dueDate: req.body.dueDate,
-    });
+        dueDate: req.body.dueDate ? req.body.dueDate : new Date().toLocaleDateString()
+    })
     newTodo.save()
         .then(newTodo => res.json(newTodo))
         .catch(err => console.log(err))
@@ -31,7 +36,7 @@ router.put("/:_id", (req, res)=> {
             description: req.body.description,
             done: req.body.done,
             inProgress: req.body.inProgress,
-            dueDate: req.body.dueDate
+            dueDate: req.body.dueDate 
         }, {new: true}, (err, data) => {
             data ? res.json(data) : res.json(err)
         }    

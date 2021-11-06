@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const TodoSchema = new Todo({
+const TodoSchema = new Schema({
     // status
     // type = marketing, production
     // duedate
@@ -21,7 +21,7 @@ const TodoSchema = new Todo({
         required: true
     },
     dueDate:{
-        type: Object,
+        type: String,
         required: true
     }
 },
