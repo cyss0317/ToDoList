@@ -7,7 +7,14 @@ router.get("/test", (req, res) => {
     res.json({msg: "this is the note route"});
 });
 
+router.get("/:id", (req, res) => {
+    const todo = Todo.findById(req.params.id)
+        .then( todo => res.json(todo) )
+        .catch( err => res.status(404).json(err))
+});
+
 router.post("/create", (req, res) => {
+    console.log(req)
     const { errors, isValid } = validateRegisterTodo(req.body);
 
     if(!isValid) return res.status(400).json(errors)
