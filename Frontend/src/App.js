@@ -10,21 +10,24 @@ const todos =
       "description": "Studying for React",
       "done": false,
       "dueDate": "11/6/2021",
-      "inProgress": false
+      "inProgress": false,
+      "tags": ["hooks", "react", "study"]
     },
     {
       "_id": "6186db2d3810cc944ef2084a",
       "description": "Workout for today",
       "done": false,
       "inProgress": true,
-      "dueDate": "11/6/2021"
+      "dueDate": "11/6/2021",
+      "tags": ["health", "chest day", "morning"]
     },
     {
       "_id": "6186db6c3810cc944ef2084b",
       "description": "practice assessment",
       "done": true,
       "inProgress": false,
-      "dueDate": "11/10/2021"
+      "dueDate": "11/10/2021",
+      "tags": ["study", "Comapny: Wingz"]
     }
   ];
 
@@ -74,7 +77,7 @@ function App() {
         </svg>
         <section className="containers">
           <Todos todos={unDones} title="Upcoming"  className="todo-list" />
-          <Todos todos={progress} title="In progress"  className="progress" />
+          <Todos todos={progress} title="In Progress"  className="progress" />
           <Todos todos={dones} title="Done"  className="done" />
         </section>
 
