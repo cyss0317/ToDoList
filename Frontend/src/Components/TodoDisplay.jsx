@@ -1,8 +1,15 @@
 import React from 'react'
+import {useState} from "react"
+
 const TodoDisplay = ({todo, id}) => {
+    const [tags, setTags] = useState(todo.tags)
+    const [tag, setTag] = useState("")
     const todoDuedate = todo.dueDate.split("/"); 
     const currentDate = new Date();
     let pastDue = undefined;
+
+    
+
     currentDate.toLocaleDateString().split("/").forEach((date, i)=> {
         // console.log(parseInt(date) > parseInt(todoDuedate[i]))
         if( parseInt(date) > parseInt(todoDuedate[i])){
@@ -20,6 +27,9 @@ const TodoDisplay = ({todo, id}) => {
                             <button key={i}>{tag}</button>
                         ))
                     }
+                    <form className="tag-input">
+                        <input type="text" onChange={e => }  value={} placeholder="Add Tags to this"/>
+                    </form>
                     <p>Due: {todo.dueDate}</p>
                     {
                         pastDue ? 

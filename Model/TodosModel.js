@@ -18,6 +18,9 @@ const TodoSchema = new Schema({
     dueDate:{
         type: String,
         required: true
+    },
+    tags:{
+        type: Array
     }
 }
     // {timestamps: true}

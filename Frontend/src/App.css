@@ -170,3 +170,18 @@ body{
   transform: scale(1.1)
 
 }
+
+.tag-input > input{
+  border: none;
+  padding: 3px;
+  font-size: 20px;
+  border-radius: 5px;
+  border-bottom: 2px solid #22222240;
+  background-color: transparent;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.tag-input > input:focus, textarea:focus{
+  outline: none;
+}
