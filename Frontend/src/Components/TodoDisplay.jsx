@@ -8,7 +8,15 @@ const TodoDisplay = ({todo, id}) => {
     const currentDate = new Date();
     let pastDue = undefined;
 
-    
+    const submitTag = e => {
+        e.preventDefault();
+        if( tag.length > 0){
+            setTags(old => [...old, tag]);
+        }
+        setTag("");
+        console.log(tags)
+
+    }    
 
     currentDate.toLocaleDateString().split("/").forEach((date, i)=> {
         // console.log(parseInt(date) > parseInt(todoDuedate[i]))
@@ -27,8 +35,8 @@ const TodoDisplay = ({todo, id}) => {
                             <button key={i}>{tag}</button>
                         ))
                     }
-                    <form className="tag-input">
-                        <input type="text" onChange={e => }  value={} placeholder="Add Tags to this"/>
+                    <form className="tag-input" onSubmit={e => submitTag(e)}>
+                        <input type="text" onChange={e => setTag(e.target.value) }  value={tag} placeholder="Add Tags to this"/>
                     </form>
                     <p>Due: {todo.dueDate}</p>
                     {
