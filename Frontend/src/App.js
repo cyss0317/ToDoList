@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {useState, useEffect } from "react";
+import {useState, useEffect, useMemo } from "react";
 import Todos from "./Components/Todos";
 // import axios from "axios"
 const todos = 
@@ -29,6 +29,19 @@ const todos =
   ];
 
 function App() {
+  const [unDone, setUnDone] = useState([]);
+  const [progress, setProgress] = useState([]);
+  const [dones, setDones ] = useState([]);
+  useEffect(()=> {
+  todos.forEach(todo => {
+    if (todo.done){
+      setDones(old => [...old, todo])
+    } else if( !todo.done && todo.progress ){
+      setProgress(old => [...old, todo])
+    } else if( !todo.done && !todo.progress){
+      setUnDone(old => [...old, todo])
+    }
+  }, [])
   // const [todos, setTodos] = useState()
   // setTodos(objects)
   // useEffect(() => {
