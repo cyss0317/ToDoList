@@ -77,9 +77,13 @@ background: linear-gradient(90deg, rgba(231,171,148,1) 2%, rgba(155,181,218,1) 9
   align-items: space-between;
 }
 
+.title{
+  font-size: 30px;
+}
+
 .todos-container{
   background-color: #FFFFFF50;
-  padding: 4rem;
+  width: 30%;
   border-radius: 10px
 }
 
