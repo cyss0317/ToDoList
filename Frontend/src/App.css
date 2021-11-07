@@ -116,6 +116,7 @@ body{
   border-radius: 5px;
   font-size: 20px;
   border-color: #408A8480;
+  
   /* color: #E0EEEC; */
 
 
@@ -137,7 +138,7 @@ body{
   background-color: transparent;
   color: #22222290;
   cursor: pointer;
-  margin-top: 5px;
+  margin-top: 10px;
 
 }
 .addTodo:hover{
