@@ -4,7 +4,7 @@ import {useState, useEffect } from "react";
 const Todos = ({todos}) => {
 
     return (
-        <div>
+        <div className="todos-container">
             {
                 todos.map(todo => {
                     return(

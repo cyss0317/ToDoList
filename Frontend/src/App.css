@@ -70,8 +70,17 @@ background: linear-gradient(90deg, rgba(231,171,148,1) 2%, rgba(155,181,218,1) 9
 }
 
 
-.App{
-  
+.containers{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: space-between;
+}
+
+.todos-container{
+  background-color: #FFFFFF50;
+  padding: 4rem;
+  border-radius: 10px
 }
 
 .todo-list{
