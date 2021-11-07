@@ -13,6 +13,12 @@ router.get("/:id", (req, res) => {
         .catch( err => res.status(404).json(err))
 });
 
+router.get("/", (req, res) => {
+    Todo.find()
+        .then(todos => res.json(todos))
+        .catch( err => res.status((404).json(err)))
+})
+
 router.post("/create", (req, res) => {
     console.log(req)
     const { errors, isValid } = validateRegisterTodo(req.body);
