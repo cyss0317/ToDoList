@@ -5,8 +5,16 @@ const Todos = ({todos}) => {
 
     return (
         <div>
-            
-            <h1>hello world</h1>        
+            {
+                todos.map(todo => {
+                    return(
+                        <>
+                            <p>{todo.description}</p>
+                            <p>{todo.dueDate}</p>
+                        </>
+                    )
+                })
+            }       
         </div>
     )
 }
