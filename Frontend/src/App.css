@@ -194,6 +194,10 @@ body{
 
 }
 
+.todo-sub{
+  width: 100%;
+}
+
 .tag-input > input{
   border: none;
   padding: 3px;
@@ -232,7 +236,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .description-and-X{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 

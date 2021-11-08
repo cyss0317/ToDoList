@@ -35,7 +35,34 @@ const TodoDisplay = ({todo, id, status}) => {
         setTag("");
         console.log(tags)
 
-    }    
+    }
+    
+    const statusButtons = status => {
+        if(status === ""){
+            return(
+                <div className="status-buttons">
+                    <button>In Progress</button>
+                    <button>Done</button>
+                </div>
+            )
+        } else if( status === "inProgress"){
+            return(
+                <div className="status-buttons">
+                    <button>Upcoming</button>
+                    <button>Done</button>
+                </div>
+            )
+        } else if(status === "done"){
+            return(
+                <div className="status-buttons">
+                    <button>Upcoming</button>
+                    <button>In Progress</button>
+                </div>
+
+            )
+        }
+    }
+    
     const currentDate = new Date();
     const todayMonth = currentDate.getUTCMonth() + 1;
     const todayDay = currentDate.getUTCDate();
@@ -47,8 +74,8 @@ const TodoDisplay = ({todo, id, status}) => {
     
     return (
         <div className="todo" value={id} draggable="true">
-            <div>
-                <div>
+            <div className="todo-sub">
+                <div >
                     <div className="description-and-X">
                         <p className="description">{todo.description}</p>
                         <button style={{display: "block"}} className="X-button">X</button>
@@ -81,53 +108,9 @@ const TodoDisplay = ({todo, id, status}) => {
                     }
                 </div>
                 <div className="done-progress-container">
-                    <div>
-                        <p>Done</p>
-                        {/* {
-                            todo.done === true ?
-                                <div>
-                                    <label htmlFor="true">true</label>
-                                    <input type="radio" name="done-done" value="true" checked />
-                                    <label htmlFor="false">false</label>
-                                    <input type="radio" name="done-done" value="false" />
-                                </div>
-                                :
-                                <div>
-                                    <label htmlFor="true">true</label>
-                                    <input type="radio" name="done-progress" value="true"  />
-                                    <label htmlFor="false">false</label>
-                                    <input type="radio" name="done-progress" value="false" checked />
-                                </div>
-
-                        } */}
-                        {/* <label htmlFor="true">true</label>
-                            <input type="radio" value="true" />
-                        <label htmlFor="false">false</label>
-                            <input type="radio" value="false" /> */}
-                    </div>
-                    <div className="inProgress-button">
-                        <p>In Progress</p>
-                            {/* {
-                                todo.inProgress === true ?
-                                <form>
-                                    <label htmlFor="true">true</label>
-                                    <input type="radio" name="progress-done" value="true" checked />
-                                    <label htmlFor="false">false</label>
-                                    <input type="radio" name="progress-done" value="false"  />
-                                </form>
-                                :
-                                <div>
-                                    <label htmlFor="false">false</label>
-                                    <input type="radio" name="progress-progress" value="true" />
-                                    <label htmlFor="false">false</label>
-                                    <input type="radio" name="progress-progress" value="false" checked />
-                                </div>
-
-                            } */}
-                            {/* <input type="radio" value="true"/>
-                        <label htmlFor="false">false</label>
-                            <input type="radio" value="false" /> */}
-                    </div>
+                    {
+                        statusButtons(status)
+                    }
                 </div>
             </div>
         </div>
