@@ -8,6 +8,18 @@ const TodoDisplay = ({todo, id}) => {
     const currentDate = new Date();
     let pastDue = undefined;
 
+    const expandTag = e => {
+        e.preventDefault();
+
+        const dateInput = document.getElementsByClassName("dueDate");
+        console.log(dateInput)
+        if( dateInput.display === "none"){
+            dateInput.display = "block";
+        } else {
+            dateInput.display = "none"
+        }
+    }
+
     const submitTag = e => {
         e.preventDefault();
         if( tag.length > 0){
@@ -39,8 +51,10 @@ const TodoDisplay = ({todo, id}) => {
                         <input type="text" onChange={e => setTag(e.target.value) }  value={tag} placeholder="Add Tags to this"/>
                     </form>
                     {/* <form action=""> */}
-                        <label >Due: {todo.dueDate}</label>
-                        < input type="date" className="dueDate" ></input >
+                        <button onClick={e => expandTag(e)} className="current-dueDate" >Due: {todo.dueDate}</button>
+                        <form >
+                            < input type="date" className="dueDate" value={todo.dueDate.to} ></input >
+                        </form>
                     {/* </form> */}
                     {
                         pastDue ? 
