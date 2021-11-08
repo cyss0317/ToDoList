@@ -109,7 +109,7 @@ body{
   padding: 6px;
 }
 
-.todos-container > .todo > div > div> button{
+.todos-container > .todo > div > div> button:not(.dueDate){
   margin: 0px 5px 10px 0px;
   background-color: #408A8440;
   padding: 5px 10px 5px 10px;
@@ -118,10 +118,27 @@ body{
   border-color: #408A8480;
   
   /* color: #E0EEEC; */
-
-
 }
 
+.dueDate{
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: transparent;
+  margin-bottom: 8px;
+
+}
+.dueDate:hover{
+  transform: scale(0.95);
+  transition: .01s;
+
+  /* border-bottom: 1px solid #22222280; */
+
+}
+.dueDate:active{
+  transform: scale(1.05);
+  transition: .01s;
+}
 .description{
   font-size: 30px;
   margin: 10px 0px 15px 0px;

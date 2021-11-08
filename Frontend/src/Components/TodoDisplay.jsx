@@ -31,14 +31,17 @@ const TodoDisplay = ({todo, id}) => {
                 <div>
                     <p className="description">{todo.description}</p>
                     {
-                        todo.tags.map((tag, i) => (
+                        tags.map((tag, i) => (
                             <button key={i}>{tag}</button>
                         ))
                     }
                     <form className="tag-input" onSubmit={e => submitTag(e)}>
                         <input type="text" onChange={e => setTag(e.target.value) }  value={tag} placeholder="Add Tags to this"/>
                     </form>
-                    <p>Due: {todo.dueDate}</p>
+                    {/* <form action=""> */}
+                        <label >Due: {todo.dueDate}</label>
+                        < input type="date" className="dueDate" ></input >
+                    {/* </form> */}
                     {
                         pastDue ? 
                         <p style={{color: "red"}}>Past Due</p>
