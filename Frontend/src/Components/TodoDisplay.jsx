@@ -87,16 +87,16 @@ const TodoDisplay = ({todo, id, status}) => {
                             todo.done === true ?
                                 <div>
                                     <label htmlFor="true">true</label>
-                                    <input type="radio" value="true" checked />
+                                    <input type="radio" name="done-done" value="true" checked />
                                     <label htmlFor="false">false</label>
-                                    <input type="radio" value="false" />
+                                    <input type="radio" name="done-done" value="false" />
                                 </div>
                                 :
                                 <div>
                                     <label htmlFor="true">true</label>
-                                    <input type="radio" name="radAnswer" value="true"  />
+                                    <input type="radio" name="done-progress" value="true"  />
                                     <label htmlFor="false">false</label>
-                                    <input type="radio" name="radAnswer" value="false" checked />
+                                    <input type="radio" name="done-progress" value="false" checked />
                                 </div>
 
                         }
@@ -109,18 +109,18 @@ const TodoDisplay = ({todo, id, status}) => {
                         <p>In Progress</p>
                             {
                                 todo.inProgress === true ?
-                                <div>
+                                <form>
                                     <label htmlFor="true">true</label>
-                                    <input type="radio" value="true" checked />
+                                    <input type="radio" name="progress-done" value="true" checked />
                                     <label htmlFor="false">false</label>
-                                    <input type="radio" value="false"  />
-                                </div>
+                                    <input type="radio" name="progress-done" value="false"  />
+                                </form>
                                 :
                                 <div>
                                     <label htmlFor="false">false</label>
-                                    <input type="radio" value="true" />
+                                    <input type="radio" name="progress-progress" value="true" />
                                     <label htmlFor="false">false</label>
-                                    <input type="radio" value="false" checked />
+                                    <input type="radio" name="progress-progress" value="false" checked />
                                 </div>
 
                             }

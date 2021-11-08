@@ -21,9 +21,9 @@ router.get("/", (req, res) => {
 
 router.post("/create", (req, res) => {
     console.log(req)
-    const { errors, isValid } = validateRegisterTodo(req.body);
+    // const { errors, isValid } = validateRegisterTodo(req.body);
 
-    if(!isValid) return res.status(400).json(errors)
+    // if(!isValid) return res.status(400).json(errors)
     const currentDate = new Date();
     const todayMonth = currentDate.getUTCMonth() + 1;
     const todayDay = currentDate.getUTCDate();
@@ -41,19 +41,25 @@ router.post("/create", (req, res) => {
 })
 
 router.delete("/:id", (req, res) => {
-    const todo = Todo.findById(req.params.id)
-        .then( todo => Todo.remove(todo))
-        .then( () => res.json({message: "Successfully deleted"}))
-        .catch(err => res.status(404).json(err))
+    const todo = Todo.findOneAndRemove({_id: req.params.id})
+        .then( () => res.json({todoDeleted: "Successfully delete"}))
+        .catch( err => res.status(404).json(err))
+        // .then( todo => Todo.remove(todo))
+        // .then( () => res.json({message: "Successfully deleted"}))
+        // .catch(err => res.status(404).json(err))
 })
 
-router.put("/:_id", (req, res)=> {
+router.patch("/:id", (req, res)=> {
     Todo.findOneAndUpdate({_id: req.params.id},
         {
-            description: req.body.description,
-            done: req.body.done,
-            inProgress: req.body.inProgress,
-            dueDate: req.body.dueDate 
+            // description: req.body.description,
+            // done: req.body.done,
+            // inProgress: req.body.inProgress,
+            // dueDate: req.body.dueDate 
+            description: req.body.description ? req.body.description : res.body.description,
+            done: req.body.done ? req.body.done : res.body.done,
+            inProgress: req.body.inProgress ? req.body.inProgress : res.body.inProgress,
+            dueDate: req.body.dueDate ? req.body.dueDate : res.body.dueDate
         }, {new: true}, (err, data) => {
             data ? res.json(data) : res.json(err)
         }    
