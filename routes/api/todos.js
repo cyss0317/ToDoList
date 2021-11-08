@@ -24,12 +24,16 @@ router.post("/create", (req, res) => {
     const { errors, isValid } = validateRegisterTodo(req.body);
 
     if(!isValid) return res.status(400).json(errors)
+    const currentDate = new Date();
+    const todayMonth = currentDate.getUTCMonth() + 1;
+    const todayDay = currentDate.getUTCDate();
+    const todayYear = currentDate.getUTCFullYear();
 
     const newTodo = new Todo({
         description: req.body.description,
         done: false,
         inProgress: false,
-        dueDate: req.body.dueDate ? req.body.dueDate : new Date().toLocaleDateString()
+        dueDate: req.body.dueDate ? req.body.dueDate : `${todayYear}-${todayMonth}-${todayDay}`
     })
     newTodo.save()
         .then(newTodo => res.json(newTodo))
