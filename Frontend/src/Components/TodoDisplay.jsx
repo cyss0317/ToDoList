@@ -2,8 +2,9 @@ import React from 'react'
 import {useState} from "react"
 
 const TodoDisplay = ({todo, id}) => {
-    const [tags, setTags] = useState(todo.tags)
-    const [tag, setTag] = useState("")
+    const [tags, setTags] = useState(todo.tags);
+    const [tag, setTag] = useState("");
+    const [newDueDate, setNewDueDate] = useState(todo.dueDate);
     // const todoDuedate = todo.dueDate; 
     const todoDuedate = todo.dueDate.split("-"); 
 
@@ -53,9 +54,9 @@ console.log(todo.dueDate)
                         <input type="text" onChange={e => setTag(e.target.value) }  value={tag} placeholder="Add Tags to this"/>
                     </form>
                     {/* <form action=""> */}
-                        <button onClick={e => expandTag(e)} className="current-dueDate" >Due: {todo.dueDate}</button>
+                        {/* <button onClick={e => expandTag(e)} className="current-dueDate" >Due: {todo.dueDate}</button> */}
                         <form >
-                            < input type="date" className="dueDate" onChange={e => console.log(e.target.value)} onClick={e => console.log(e.currentTarget.value)} value={todo.dueDate} ></input >
+                            <span>Due: </span>< input type="date" className="dueDate" onChange={e => setNewDueDate(e.target.value)} onClick={e => console.log(e.currentTarget.value)} defaultValue={todo.dueDate} ></input >
                         </form>
                     {/* </form> */}
                     {
