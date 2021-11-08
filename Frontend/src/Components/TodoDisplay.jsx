@@ -83,7 +83,7 @@ const TodoDisplay = ({todo, id, status}) => {
                 <div className="done-progress-container">
                     <div>
                         <p>Done</p>
-                        {
+                        {/* {
                             todo.done === true ?
                                 <div>
                                     <label htmlFor="true">true</label>
@@ -99,7 +99,7 @@ const TodoDisplay = ({todo, id, status}) => {
                                     <input type="radio" name="done-progress" value="false" checked />
                                 </div>
 
-                        }
+                        } */}
                         {/* <label htmlFor="true">true</label>
                             <input type="radio" value="true" />
                         <label htmlFor="false">false</label>
@@ -107,7 +107,7 @@ const TodoDisplay = ({todo, id, status}) => {
                     </div>
                     <div className="inProgress-button">
                         <p>In Progress</p>
-                            {
+                            {/* {
                                 todo.inProgress === true ?
                                 <form>
                                     <label htmlFor="true">true</label>
@@ -123,7 +123,7 @@ const TodoDisplay = ({todo, id, status}) => {
                                     <input type="radio" name="progress-progress" value="false" checked />
                                 </div>
 
-                            }
+                            } */}
                             {/* <input type="radio" value="true"/>
                         <label htmlFor="false">false</label>
                             <input type="radio" value="false" /> */}

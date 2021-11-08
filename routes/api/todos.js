@@ -20,20 +20,22 @@ router.get("/", (req, res) => {
 })
 
 router.post("/create", (req, res) => {
-    console.log(req)
-    // const { errors, isValid } = validateRegisterTodo(req.body);
 
-    // if(!isValid) return res.status(400).json(errors)
+    const { errors, isValid } = validateRegisterTodo(req.body);
+
+    if(!isValid) return res.status(400).json(errors)
     const currentDate = new Date();
     const todayMonth = currentDate.getUTCMonth() + 1;
     const todayDay = currentDate.getUTCDate();
     const todayYear = currentDate.getUTCFullYear();
 
     const newTodo = new Todo({
+        //question: 
         description: req.body.description,
         done: false,
         inProgress: false,
-        dueDate: req.body.dueDate ? req.body.dueDate : `${todayYear}-${todayMonth}-${todayDay}`
+        dueDate: req.body.dueDate ? req.body.dueDate : `${todayYear}-${todayMonth}-${todayDay}`,
+        tags: []
     })
     newTodo.save()
         .then(newTodo => res.json(newTodo))
@@ -49,17 +51,20 @@ router.delete("/:id", (req, res) => {
         // .catch(err => res.status(404).json(err))
 })
 
-router.patch("/:id", (req, res)=> {
+//question: 
+router.put("/:id", (req, res)=> {
+    console.log(req)
     Todo.findOneAndUpdate({_id: req.params.id},
         {
-            // description: req.body.description,
-            // done: req.body.done,
-            // inProgress: req.body.inProgress,
-            // dueDate: req.body.dueDate 
-            description: req.body.description ? req.body.description : res.body.description,
-            done: req.body.done ? req.body.done : res.body.done,
-            inProgress: req.body.inProgress ? req.body.inProgress : res.body.inProgress,
-            dueDate: req.body.dueDate ? req.body.dueDate : res.body.dueDate
+            description: req.body.description,
+            done: req.body.done,
+            inProgress: req.body.inProgress,
+            dueDate: req.body.dueDate,
+            tags: req.body.tags
+            // description: req.body.description ? req.body.description : res.body.description,
+            // done: req.body.done ? req.body.done : res.body.done,
+            // inProgress: req.body.inProgress ? req.body.inProgress : res.body.inProgress,
+            // dueDate: req.body.dueDate ? req.body.dueDate : res.body.dueDate
         }, {new: true}, (err, data) => {
             data ? res.json(data) : res.json(err)
         }    
