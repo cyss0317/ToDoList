@@ -9,7 +9,7 @@ const todos =
       "_id": "6186b7603810cc944ef20849",
       "description": "Studying for React",
       "done": false,
-      "dueDate": "11/6/2021",
+      "dueDate": "2021-11-6",
       "inProgress": false,
       "tags": ["hooks", "react", "study"]
     },
@@ -18,7 +18,7 @@ const todos =
       "description": "Workout for today",
       "done": false,
       "inProgress": true,
-      "dueDate": "11/6/2021",
+      "dueDate": "2021-11-6",
       "tags": ["health", "chest day", "morning"]
     },
     {
@@ -26,7 +26,7 @@ const todos =
       "description": "practice assessment",
       "done": true,
       "inProgress": false,
-      "dueDate": "11/10/2021",
+      "dueDate": "2021-11-10",
       "tags": ["study", "Comapny: Wingz"]
     }
   ];

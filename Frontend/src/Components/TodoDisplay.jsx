@@ -4,10 +4,11 @@ import {useState} from "react"
 const TodoDisplay = ({todo, id}) => {
     const [tags, setTags] = useState(todo.tags)
     const [tag, setTag] = useState("")
-    const todoDuedate = todo.dueDate.split("/"); 
-    const currentDate = new Date();
-    let pastDue = undefined;
+    // const todoDuedate = todo.dueDate; 
+    const todoDuedate = todo.dueDate.split("-"); 
 
+    let pastDue = undefined;
+console.log(todo.dueDate)
     const expandTag = e => {
         e.preventDefault();
 
@@ -29,14 +30,15 @@ const TodoDisplay = ({todo, id}) => {
         console.log(tags)
 
     }    
+    const currentDate = new Date();
+    const todayMonth = currentDate.getUTCMonth() + 1;
+    const todayDay = currentDate.getUTCDate();
+    const todayYear = currentDate.getUTCFullYear();
 
-    currentDate.toLocaleDateString().split("/").forEach((date, i)=> {
-        // console.log(parseInt(date) > parseInt(todoDuedate[i]))
-        if( parseInt(date) > parseInt(todoDuedate[i])){
-            pastDue = true;
-        }
-    })
-    console.log(pastDue)
+    const [dueYear, dueMonth, dueDay] = todo.dueDate.split("-");
+
+    if(parseInt(dueYear) < todayYear || parseInt(dueMonth) < todayMonth || parseInt(dueDay) < todayDay) pastDue = true;
+
     return (
         <div className="todo" value={id} draggable="true">
             <div>
@@ -53,7 +55,7 @@ const TodoDisplay = ({todo, id}) => {
                     {/* <form action=""> */}
                         <button onClick={e => expandTag(e)} className="current-dueDate" >Due: {todo.dueDate}</button>
                         <form >
-                            < input type="date" className="dueDate" value={todo.dueDate.to} ></input >
+                            < input type="date" className="dueDate" onChange={e => console.log(e.target.value)} onClick={e => console.log(e.currentTarget.value)} value={todo.dueDate} ></input >
                         </form>
                     {/* </form> */}
                     {
