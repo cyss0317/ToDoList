@@ -4,29 +4,27 @@ import * as todoAPIUtil from "../util/todo_util"
 
 
 const TodoDisplay = ({props, propTodo, id, status}) => {
-    const [todo, setTodo] = useState({})
+    const [todo, setTodo] = useState(propTodo)
     const [todos, setTodos] = useState()
     const [tags, setTags] = useState(propTodo.tags);
     const [tag, setTag] = useState("");
     const [newDueDate, setNewDueDate] = useState(propTodo.dueDate);
 
+    console.log(todo)
 
-    // const createTodoReq = async() => {
-    //     const response = 
-    // }
     useEffect(() => {
-        const fetchTodos = async () => {
-            const response = await todoAPIUtil.getTodos()
-            const data = response.data
-            setTodo(response)
-            console.log(`${status} from TodoDisplay`,data)
-        }
-        fetchTodos()
-    }, [])
+
+    },[todo])
+
+    const deleteTodo = (e) => {
+        e.preventDefault();
+        todoAPIUtil.deleteTodo(id)
+        setTodo({})
+        console.log("delete")
+    }
+
 
     let pastDue = undefined;
-
-
 
     const dueDateOnChange = (e) => {
         const changeButton = document.getElementById(`${id}`);
@@ -90,7 +88,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                 <div >
                     <div className="description-and-X">
                         <p className="description">{todo.description}</p>
-                        <button style={{display: "block"}} className="X-button">X</button>
+                        <button onClick={e => deleteTodo(e)} style={{display: "block"}} className="X-button">X</button>
                     </div>
                     {
                         tags.map((tag, i) => (
