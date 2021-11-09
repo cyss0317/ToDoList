@@ -15,3 +15,7 @@ export const deleteTodo = todoId => {
 export const getTodo = todoId => {
     return axios.get(`/api/todos/${todoId}`)
 }
+
+export const getTodos = () => {
+    return axios.get(`/api/todos/`)
+}

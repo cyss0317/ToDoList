@@ -12,7 +12,7 @@ const Todos = ({todos, title, status}) => {
             </div>
             {
                 todos.map(todo => (
-                    <TodoDisplay status={status} key={todo._id} id={todo._id} todo={todo} />
+                    <TodoDisplay status={status} key={todo._id} id={todo._id} propTodo={todo} />
                 ))
             }
         </div>
