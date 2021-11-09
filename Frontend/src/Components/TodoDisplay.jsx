@@ -1,10 +1,16 @@
 import React from 'react'
-import {useState} from "react"
+import {useState, useReducer} from "react"
+import * as todoAPIUtil from "../util/todo_util"
 
 const TodoDisplay = ({props, todo, id, status}) => {
     const [tags, setTags] = useState(todo.tags);
     const [tag, setTag] = useState("");
     const [newDueDate, setNewDueDate] = useState(todo.dueDate);
+    const [todo, setTodo] = useState({})
+
+    const createTodoReq = async() => {
+        const response = 
+    }
 
     let pastDue = undefined;
 
