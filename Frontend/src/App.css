@@ -114,7 +114,8 @@ body{
   padding: 5px 10px 5px 10px;
   border-radius: 5px;
   font-size: 20px;
-  border-color: #408A8480;
+  color: #5b7eaf;
+  border-color: rgb(231,171,148);;
   
   /* color: #E0EEEC; */
 }
@@ -217,7 +218,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .change-dueDate-button{
-  border: 1px solid #22222270;
+  border: 1px solid rgb(231,171,148);
   color: white;
   background: linear-gradient(90deg, rgba(231,171,148,1) 2%, rgba(155,181,218,1) 93%);
   width: 40%;
@@ -278,12 +279,13 @@ input[type="radio"] {
 }
 
 .status-buttons > button{
-  background-color: #bcdedb20;
+background: linear-gradient(90deg, rgba(231,171,148,1) 2%, rgba(155,181,218,1) 93%);
   padding: 5px 10px 5px 10px;
   border-radius: 5px;
   font-size: 20px;
   border-color: #408A8480;
   cursor: pointer;
+  color: white;
 }
 
 .status-buttons > button:hover{
