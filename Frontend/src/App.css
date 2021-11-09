@@ -83,8 +83,7 @@ body{
 }
 
 .title{
-  font-size: 30px;
-  margin-bottom: 20px;
+  font-size: 35px;
 }
 
 .todos-container{
@@ -109,9 +108,9 @@ body{
   padding: 6px;
 }
 
-.todos-container > .todo > div > div> button:not(.dueDate){
+.todos-container > .todo > div > div> button:not(.dueDate, .status-buttons > button){
   margin: 0px 5px 10px 0px;
-  background-color: #408A8440;
+  background-color: #bcdedb20;
   padding: 5px 10px 5px 10px;
   border-radius: 5px;
   font-size: 20px;
@@ -141,7 +140,7 @@ body{
   transition: .01s;
 }
 .description{
-  font-size: 30px;
+  font-size: 25px;
   margin: 10px 0px 15px 0px;
 }
 
@@ -156,7 +155,6 @@ body{
   background-color: transparent;
   color: #22222290;
   cursor: pointer;
-  margin-top: 10px;
 
 }
 .addTodo:hover{
@@ -231,6 +229,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .description-and-X{
@@ -238,6 +237,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 
@@ -254,6 +254,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin-top: 15px;
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 .done-progress-container > div > p {
   margin-bottom: 7px;
@@ -264,4 +265,38 @@ input[type="radio"] {
   -webkit-appearance: checkbox; /* Chrome, Safari, Opera */
   -moz-appearance: checkbox;    /* Firefox */
   -ms-appearance: checkbox;     /* not currently supported */
+}
+
+.status-buttons{
+  display: flex;
+  justify-content: space-evenly;
+  align-items:center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.status-buttons > button{
+  background-color: #bcdedb20;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  border-color: #408A8480;
+  cursor: pointer;
+}
+
+.status-buttons > button:hover{
+  transform: scale(0.95);
+  transition: 0.1s;
+}
+.status-buttons > button:active{
+  transform: scale(1.05);
+  transition: 0.1s;
+}
+
+.title-addButton{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
 }

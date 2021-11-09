@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState} from "react"
 
-const TodoDisplay = ({todo, id, status}) => {
+const TodoDisplay = ({props, todo, id, status}) => {
     const [tags, setTags] = useState(todo.tags);
     const [tag, setTag] = useState("");
     const [newDueDate, setNewDueDate] = useState(todo.dueDate);
@@ -38,9 +38,10 @@ const TodoDisplay = ({todo, id, status}) => {
     }
     
     const statusButtons = status => {
-        if(status === ""){
+        if(status === "upcoming"){
             return(
                 <div className="status-buttons">
+                    <p>Move to:   </p>
                     <button>In Progress</button>
                     <button>Done</button>
                 </div>
@@ -48,6 +49,7 @@ const TodoDisplay = ({todo, id, status}) => {
         } else if( status === "inProgress"){
             return(
                 <div className="status-buttons">
+                    <p>Move to:   </p>
                     <button>Upcoming</button>
                     <button>Done</button>
                 </div>
@@ -55,6 +57,7 @@ const TodoDisplay = ({todo, id, status}) => {
         } else if(status === "done"){
             return(
                 <div className="status-buttons">
+                    <p>Move to:   </p>
                     <button>Upcoming</button>
                     <button>In Progress</button>
                 </div>
@@ -71,7 +74,8 @@ const TodoDisplay = ({todo, id, status}) => {
     const [dueYear, dueMonth, dueDay] = newDueDate.split("-");
     
     if(parseInt(dueYear) < todayYear || parseInt(dueMonth) < todayMonth || parseInt(dueDay) < todayDay) pastDue = true;
-    
+     
+    console.log(props)
     return (
         <div className="todo" value={id} draggable="true">
             <div className="todo-sub">
@@ -107,11 +111,9 @@ const TodoDisplay = ({todo, id, status}) => {
                         <></>
                     }
                 </div>
-                <div className="done-progress-container">
-                    {
-                        statusButtons(status)
-                    }
-                </div>
+                {
+                    statusButtons(status)
+                }
             </div>
         </div>
     )
