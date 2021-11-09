@@ -18,10 +18,11 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
             const response = await todoAPIUtil.getTodos()
             const data = response.data
             setTodo(response)
-            console.log("todo",todo)
+            console.log(`${status}`,data)
         }
         fetchTodos()
     }, [])
+
     let pastDue = undefined;
 
 
