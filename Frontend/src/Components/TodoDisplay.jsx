@@ -4,25 +4,24 @@ import * as todoAPIUtil from "../util/todo_util"
 
 
 const TodoDisplay = ({props, propTodo, id, status}) => {
+    const [todo, setTodo] = useState({})
+    const [todos, setTodos] = useState()
     const [tags, setTags] = useState(propTodo.tags);
     const [tag, setTag] = useState("");
     const [newDueDate, setNewDueDate] = useState(propTodo.dueDate);
-    const [todo, setTodo] = useState({})
-    const [todos, setTodos] = useState()
 
     // const createTodoReq = async() => {
     //     const response = 
     // }
     useEffect(() => {
         const fetchTodos = async () => {
-            const response = await todoAPIUtil.getTodo()
+            const response = await todoAPIUtil.getTodos()
             const data = response.data
-            setTodo()
-            console.log(response)
-            // console.log(todos)
+            setTodo(response)
+            console.log("todo",todo)
         }
         fetchTodos()
-    }, [todo])
+    }, [])
     let pastDue = undefined;
 
 

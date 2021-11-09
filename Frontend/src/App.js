@@ -2,39 +2,41 @@ import logo from './logo.svg';
 import './App.css';
 import {useState, useEffect, useMemo } from "react";
 import Todos from "./Components/Todos";
+import * as todoAPIUtil from "./util/todo_util"
 
 
 
 // import axios from "axios"
-const todos = 
-  [
-    {
-      "_id": "6186b7603810cc944ef20849",
-      "description": "Studying for React",
-      "done": false,
-      "dueDate": "2021-11-06",
-      "inProgress": false,
-      "tags": ["hooks", "react", "study"]
-    },
-    {
-      "_id": "6186db2d3810cc944ef2084a",
-      "description": "Workout for today",
-      "done": false,
-      "inProgress": true,
-      "dueDate": "2021-11-06",
-      "tags": ["health", "chest day", "morning"]
-    },
-    {
-      "_id": "6186db6c3810cc944ef2084b",
-      "description": "practice assessment",
-      "done": true,
-      "inProgress": false,
-      "dueDate": "2021-11-10",
-      "tags": ["study", "Comapny: Wingz"]
-    }
-  ];
+// const todos = 
+//   [
+//     {
+//       "_id": "6186b7603810cc944ef20849",
+//       "description": "Studying for React",
+//       "done": false,
+//       "dueDate": "2021-11-06",
+//       "inProgress": false,
+//       "tags": ["hooks", "react", "study"]
+//     },
+//     {
+//       "_id": "6186db2d3810cc944ef2084a",
+//       "description": "Workout for today",
+//       "done": false,
+//       "inProgress": true,
+//       "dueDate": "2021-11-06",
+//       "tags": ["health", "chest day", "morning"]
+//     },
+//     {
+//       "_id": "6186db6c3810cc944ef2084b",
+//       "description": "practice assessment",
+//       "done": true,
+//       "inProgress": false,
+//       "dueDate": "2021-11-10",
+//       "tags": ["study", "Comapny: Wingz"]
+//     }
+//   ];
 
 function App() {
+  const [todos, setTodos] = useState([]);
   const [unDones, setUnDones] = useState([]);
   const [progress, setProgress] = useState([]);
   const [dones, setDones ] = useState([]);
@@ -44,15 +46,24 @@ function App() {
   window.dones =dones ;
 
   useEffect(()=> {
-    todos.forEach(todo => {
-      if (todo.done) {
-        setDones(old => [...old, todo])
-      } else if (!todo.done && todo.inProgress) {
-        setProgress(old => [...old, todo])
-      } else if (!todo.done && !todo.inProgress) {
-        setUnDones(old => [...old, todo])
-      }
-    })
+    const fetchTodos = async () => {
+      const response = await todoAPIUtil.getTodos()
+      // const data = response.data
+      console.log(response)
+      // setTodos(data)
+      // console.log(todos)
+      // window.todos = todos
+    }
+    fetchTodos();
+    // todos.forEach(todo => {
+    //   if (todo.done) {
+    //     setDones(old => [...old, todo])
+    //   } else if (!todo.done && todo.inProgress) {
+    //     setProgress(old => [...old, todo])
+    //   } else if (!todo.done && !todo.inProgress) {
+    //     setUnDones(old => [...old, todo])
+    //   }
+    // })
   },[])
 
   // const [todos, setTodos] = useState()
