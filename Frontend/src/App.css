@@ -218,8 +218,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .change-dueDate-button{
   border: 1px solid #22222270;
-  background-color: #A2ACBD60;
-
+  color: white;
+  background: linear-gradient(90deg, rgba(231,171,148,1) 2%, rgba(155,181,218,1) 93%);
+  width: 40%;
+  margin-right: 6%;
   border-radius: 5px;
   cursor: pointer;
   font-size: 12px;
@@ -300,3 +302,4 @@ input[type="radio"] {
   margin-bottom: 10px;
   flex-wrap: wrap;
 }
+

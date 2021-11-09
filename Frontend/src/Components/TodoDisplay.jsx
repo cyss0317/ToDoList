@@ -8,17 +8,7 @@ const TodoDisplay = ({props, todo, id, status}) => {
 
     let pastDue = undefined;
 
-    const expandTag = e => {
-        e.preventDefault();
 
-        const dateInput = document.getElementsByClassName("dueDate");
-        console.log(dateInput)
-        if( dateInput.display === "none"){
-            dateInput.display = "block";
-        } else {
-            dateInput.display = "none"
-        }
-    }
 
     const dueDateOnChange = (e) => {
         const changeButton = document.getElementById(`${id}`);
