@@ -10,6 +10,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
     const [tag, setTag] = useState("");
     const [newDueDate, setNewDueDate] = useState(propTodo.dueDate);
 
+
     // const createTodoReq = async() => {
     //     const response = 
     // }
@@ -18,7 +19,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
             const response = await todoAPIUtil.getTodos()
             const data = response.data
             setTodo(response)
-            console.log(`${status}`,data)
+            console.log(`${status} from TodoDisplay`,data)
         }
         fetchTodos()
     }, [])

@@ -6,73 +6,65 @@ import * as todoAPIUtil from "./util/todo_util"
 
 
 
-import axios from "axios"
-const todos = 
-  [
-    {
-      "_id": "6186b7603810cc944ef20849",
-      "description": "Studying for React",
-      "done": false,
-      "dueDate": "2021-11-06",
-      "inProgress": false,
-      "tags": ["hooks", "react", "study"]
-    },
-    {
-      "_id": "6186db2d3810cc944ef2084a",
-      "description": "Workout for today",
-      "done": false,
-      "inProgress": true,
-      "dueDate": "2021-11-06",
-      "tags": ["health", "chest day", "morning"]
-    },
-    {
-      "_id": "6186db6c3810cc944ef2084b",
-      "description": "practice assessment",
-      "done": true,
-      "inProgress": false,
-      "dueDate": "2021-11-10",
-      "tags": ["study", "Comapny: Wingz"]
-    }
-  ];
+// import axios from "axios"
+// const todos = 
+//   [
+//     {
+//       "_id": "6186b7603810cc944ef20849",
+//       "description": "Studying for React",
+//       "done": false,
+//       "dueDate": "2021-11-06",
+//       "inProgress": false,
+//       "tags": ["hooks", "react", "study"]
+//     },
+//     {
+//       "_id": "6186db2d3810cc944ef2084a",
+//       "description": "Workout for today",
+//       "done": false,
+//       "inProgress": true,
+//       "dueDate": "2021-11-06",
+//       "tags": ["health", "chest day", "morning"]
+//     },
+//     {
+//       "_id": "6186db6c3810cc944ef2084b",
+//       "description": "practice assessment",
+//       "done": true,
+//       "inProgress": false,
+//       "dueDate": "2021-11-10",
+//       "tags": ["study", "Comapny: Wingz"]
+//     }
+//   ];
 
 const App = () => {
-  // const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([]);
   const [unDones, setUnDones] = useState([]);
   const [progress, setProgress] = useState([]);
   const [dones, setDones ] = useState([]);
+  // const b = todoAPIUtil.createTodo(
+  //   { 
+  //     description: "why not working",
+  //     tags: ["hooks"]
+  //   }
+  // )
+  // console.log(b)
 
   window.unDones = unDones;
   window.progress = progress;
   window.dones =dones ;
-  // useEffect(() => {
-  //   const fetchTodos = async () => {
-  //     const response = await todoAPIUtil.getTodos()
-  //     console.log(response)
-  //     // const data = response.data
-  //     // setTodos(response)
-  //     // console.log("todo", todo)
-  //   }
-  //   fetchTodos()
-  // }, [])
+
   useEffect(()=> {
-    // const fetchTodos = async () => {
-    //   const response = await todoAPIUtil.getTodos()
-    //   // const data = response.data
-    //   console.log(response)
-    //   // setTodos(data)
-    //   // console.log(todos)
-    //   // window.todos = todos
-    // }
-    // fetchTodos();
+
     const fetchTodos = async () => {
       const response = await todoAPIUtil.getTodos()
       const data = response.data
-      // setTodo(response)
-      console.log(`hello`, data)
-      console.log("hellllllo")
+      setTodos(data)
+      console.log("data from App.js", data)
+      console.log(`todos from App.js`, todos)
+      console.log("App.js rendering")
     }
-    
-    fetchTodos()
+    todos.length === 0 ? fetchTodos() : console.log(todos)
+    // fetchTodos();
+
     todos.forEach(todo => {
       if (todo.done) {
         setDones(old => [...old, todo])
@@ -82,7 +74,13 @@ const App = () => {
         setUnDones(old => [...old, todo])
       }
     })
-  },[])
+    console.log(unDones)
+    console.log(progress)
+    console.log(dones)
+    //question
+    //how to receive response correctly?
+    //how to prevent infinite rendering
+  },[todos])
 
   // const [todos, setTodos] = useState()
   // setTodos(objects)
@@ -100,7 +98,7 @@ const App = () => {
     
   //   fetchData();
   // },[])
-  window.todos = todos;
+  // window.todos = todos;
   return (
     <div className="custom-shape-divider-top-1636227455" className="App">
 

@@ -305,3 +305,6 @@ background: linear-gradient(90deg, rgba(231,171,148,1) 2%, rgba(155,181,218,1) 9
   flex-wrap: wrap;
 }
 
+.todo{
+  margin-bottom: 10px;
+}
