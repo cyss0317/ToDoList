@@ -9,17 +9,14 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
     const [tag, setTag] = useState("");
     const [newDueDate, setNewDueDate] = useState(propTodo.dueDate);
 
-    console.log(todo)
+
     
     useEffect(() => {
 
     },[setTodo])
 
     const onClickUpdateStatus =  (e, status) => {
-        //why status could be undefined
         e.preventDefault();
-        console.log("status",status)
-        console.log(e)
         const answer = window.confirm(`Move this to ${status}?`)
         if(!answer) return ;
         if(answer && status === "done"){
@@ -57,17 +54,13 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
             )
         }
         const response =  todoAPIUtil.updateTodo(todo)
-        console.log(response.data)
-        console.log(todo)
+
     }
 
     const deleteTodo = (e) => {
         e.preventDefault();
-        console.log("before", todo)
         todoAPIUtil.deleteTodo(id)
         setTodo({})
-        console.log(todo)
-        console.log("delete")
     }
 
 
@@ -75,7 +68,6 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
 
     const dueDateOnChange = (e) => {
         const changeButton = document.getElementById(`${id}`);
-        console.log(changeButton)
         setNewDueDate(e.target.value);
         changeButton.style.display = "block"
     }
@@ -94,12 +86,9 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                 tags: tagsDup
             };
             setTodo(newTodo);
-            console.log("newTOdo", newTodo)
             await todoAPIUtil.updateTodo(newTodo)
-                .then(res => console.log(res.config.data))
         }
         setTag("");
-        console.log(tags)
 
     }
 
@@ -123,7 +112,6 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
 
     }
 
-    console.log(tags)
     
     const statusButtons = status => {
         if(status === "upcoming"){
@@ -163,7 +151,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
     
     if(parseInt(dueYear) < todayYear || parseInt(dueMonth) < todayMonth || parseInt(dueDay) < todayDay) pastDue = true;
      
-    console.log(props)
+
     return (
         <div className="todo" value={id} draggable="true">
             <div className="todo-sub">
@@ -185,7 +173,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                     <form className="change-dueDates-container">
                         <div className="due-date-hover-effect">
                             <span>Due: </span>< input type="date" className="dueDate" onChange={e => dueDateOnChange(e)}
-                            onClick={e => console.log(newDueDate)} defaultValue={newDueDate} >
+                            defaultValue={newDueDate} >
                             </input >
 
                         </div>

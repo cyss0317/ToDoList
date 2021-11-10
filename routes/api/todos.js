@@ -53,7 +53,6 @@ router.delete("/:id", (req, res) => {
 
 //question: 
 router.put("/:id", (req, res)=> {
-    console.log(req)
     Todo.findOneAndUpdate({_id: req.params.id},
         {
             description: req.body.description,

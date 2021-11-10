@@ -16,7 +16,6 @@ const Todos = ({propTodos, title, status}) => {
     useEffect( () => {
         
     },[todos])
-    console.log("description",newDescription)
 
     // const onClickSetStatus = e => {
     //     if(status === "done"){
@@ -30,11 +29,10 @@ const Todos = ({propTodos, title, status}) => {
     //         setNewProgress(false)
     //     }
     // }
-
     const createSubmit = e => {
         const newTodo = {
             description: newDescription,
-            // dueDate: newDate,
+            dueDate: newDueDate,
             done: newDone,
             inProgress: newProgress,
             tags: []
@@ -48,7 +46,6 @@ const Todos = ({propTodos, title, status}) => {
         e.preventDefault()
         const modal = document.querySelector(".modal-background")
         modal.style.display = "block"
-        console.log("statusssssss",status)
         if (status === "done") {
             setNewDone(true)
             setNewProgress(false)
@@ -61,8 +58,6 @@ const Todos = ({propTodos, title, status}) => {
         }
 
     }
-    console.log("newDone",newDone)
-    console.log("newDone",newProgress)
 
 
     return (
@@ -87,7 +82,7 @@ const Todos = ({propTodos, title, status}) => {
                         <input type="text" value={newDescription} onChange={e => setNewDescription(e.target.value)}/>
                         
                         <label htmlFor="dueDate">Due date:  </label>
-                        <input type="date" />
+                        <input type="date" value={newDueDate} onChange={e => setNewDueDate(e.target.value)}/>
                         <button>submit</button>
                     </form>
                 </div>

@@ -40,17 +40,7 @@ const App = () => {
   const [unDones, setUnDones] = useState([]);
   const [progress, setProgress] = useState([]);
   const [dones, setDones ] = useState([]);
-  // const b = todoAPIUtil.createTodo(
-  //   { 
-  //     description: "why not working",
-  //     tags: ["hooks"]
-  //   }
-  // )
-  // console.log(b)
 
-  window.unDones = unDones;
-  window.progress = progress;
-  window.dones =dones ;
 
   useEffect(()=> {
 
@@ -58,12 +48,9 @@ const App = () => {
       const response = await todoAPIUtil.getTodos()
       const data = response.data
       setTodos(data)
-      console.log("data from App.js", data)
-      console.log(`todos from App.js`, todos)
-      console.log("App.js rendering")
+
     }
     todos.length === 0 ? fetchTodos() : console.log(todos)
-    // fetchTodos();
 
     todos.forEach(todo => {
       if (todo.done) {
@@ -74,9 +61,6 @@ const App = () => {
         setUnDones(old => [...old, todo])
       }
     })
-    console.log(unDones)
-    console.log(progress)
-    console.log(dones)
 
   },[todos])
 
