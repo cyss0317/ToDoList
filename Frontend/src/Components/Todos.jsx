@@ -47,15 +47,15 @@ const Todos = ({propTodos, title, status}) => {
         }
     }
 
-    // const newTodo = ({
-    //     description: newDescription,
-    //     dueDate: newDueDate,
-    //     done: newDone,
-    //     inProgress: newProgress,
-    //     tags: []
-    // })
     const setDescriptionOnChange = (e) => {
         setNewDescription(e.target.value)
+        // const newTodo = ({
+        //     description: newDescription,
+        //     dueDate: newDueDate,
+        //     done: newDone,
+        //     inProgress: newProgress,
+        //     tags: []
+        // })
 
     }
 
