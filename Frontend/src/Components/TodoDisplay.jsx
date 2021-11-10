@@ -15,12 +15,15 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
 
     },[setTodo])
 
-    const onClickUpdateStatus =  (e, status) => {
+    const onClickUpdateStatus =  e => {
         e.preventDefault();
+        let newTodo = {};
         const answer = window.confirm(`Move this to ${status}?`)
         if(!answer) return ;
-        if(answer && status === "done"){
-            setTodo(
+
+        //question, it updates but won't re-render
+        if(answer && e.target.value === "Done"){
+            newTodo =
                 {
                     id: id,
                     description: todo.description,
@@ -29,9 +32,9 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                     inProgress: todo.inProgress,
                     tags: tags
                 }
-            )
-        } else if(answer && status === "inProgress") {
-            setTodo(
+            setTodo(newTodo)    
+        } else if (answer && e.target.value === "In Progress") {
+            newTodo =
                 {
                     id: id,
                     description: todo.description,
@@ -40,9 +43,9 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                     inProgress: true,
                     tags: tags
                 }
-            )
-        } else if( answer && status === "upcoming"){
-            setTodo(
+            setTodo(newTodo)
+        } else if (answer && e.target.value === "Upcoming"){
+            newTodo =
                 {
                     id: id,
                     description: todo.description,
@@ -51,10 +54,10 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                     inProgress: false,
                     tags: tags
                 }
-            )
+            setTodo(newTodo)
         }
-        const response =  todoAPIUtil.updateTodo(todo)
-
+            console.log("newtodo", newTodo)
+            todoAPIUtil.updateTodo(newTodo)
     }
 
     const deleteTodo = (e) => {
@@ -118,24 +121,24 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
             return(
                 <div className="status-buttons">
                     <p>Move to:   </p>
-                    <button onClick={(e, status) => onClickUpdateStatus(e, status) }>In Progress</button>
-                    <button onClick={(e, status) => onClickUpdateStatus(e, status)}>Done</button>
+                    <button value="In Progress" onClick={e => onClickUpdateStatus(e) }>In Progress</button>
+                    <button value="Done" onClick={e => onClickUpdateStatus(e)}>Done</button>
                 </div>
             )
         } else if( status === "inProgress"){
             return(
                 <div className="status-buttons">
                     <p>Move to:   </p>
-                    <button onClick={(e, status) => onClickUpdateStatus(e, status)}>Upcoming</button>
-                    <button onClick={(e, status) => onClickUpdateStatus(e, status) }>Done</button>
+                    <button value="Upcoming" onClick={e => onClickUpdateStatus(e)}>Upcoming</button>
+                    <button value="Done" onClick={e => onClickUpdateStatus(e) }>Done</button>
                 </div>
             )
         } else if(status === "done"){
             return(
                 <div className="status-buttons">
                     <p>Move to:   </p>
-                    <button onClick={(e, status) => onClickUpdateStatus(e, status) }>Upcoming</button>
-                    <button onClick={(e, status) => onClickUpdateStatus(e, status) }>In Progress</button>
+                    <button value="Upcoming" onClick={e => onClickUpdateStatus(e) }>Upcoming</button>
+                    <button value="In Progress" onClick={e => onClickUpdateStatus(e) }>In Progress</button>
                 </div>
 
             )
