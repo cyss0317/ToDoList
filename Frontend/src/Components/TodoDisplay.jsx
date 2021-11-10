@@ -1,25 +1,28 @@
 import React from 'react'
-import {useState, useReducer, useEffect} from "react"
+import {useState, useEffect} from "react"
 import * as todoAPIUtil from "../util/todo_util"
 
 
 const TodoDisplay = ({props, propTodo, id, status}) => {
     const [todo, setTodo] = useState(propTodo)
-    const [todos, setTodos] = useState()
     const [tags, setTags] = useState(propTodo.tags);
     const [tag, setTag] = useState("");
     const [newDueDate, setNewDueDate] = useState(propTodo.dueDate);
 
     console.log(todo)
-
+    
     useEffect(() => {
 
-    },[todo])
+    },[setTodo])
 
-    const onClickUpdateStatus = async (e, status) => {
+    const onClickUpdateStatus =  (e, status) => {
+        //why status could be undefined
         e.preventDefault();
-        
-        if(status === "done"){
+        console.log("status",status)
+        console.log(e)
+        const answer = window.confirm(`Move this to ${status}?`)
+        if(!answer) return ;
+        if(answer && status === "done"){
             setTodo(
                 {
                     _id: id,
@@ -30,7 +33,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                     tags: tags
                 }
             )
-        } else {
+        } else if(answer && status === "inProgress") {
             setTodo(
                 {
                     _id: id,
@@ -41,14 +44,29 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                     tags: tags
                 }
             )
-        } 
-        const response = await todoAPIUtil.updateTodo(todo)
+        } else if( answer && status === "upcoming"){
+            setTodo(
+                {
+                    _id: id,
+                    description: todo.description,
+                    dueDate: todo.dueDate,
+                    done: false,
+                    inProgress: false,
+                    tags: tags
+                }
+            )
+        }
+        const response =  todoAPIUtil.updateTodo(todo)
+        console.log(response.data)
+        console.log(todo)
     }
 
     const deleteTodo = (e) => {
         e.preventDefault();
+        console.log("before", todo)
         todoAPIUtil.deleteTodo(id)
         setTodo({})
+        console.log(todo)
         console.log("delete")
     }
 
@@ -77,24 +95,24 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
             return(
                 <div className="status-buttons">
                     <p>Move to:   </p>
-                    <button>In Progress</button>
-                    <button>Done</button>
+                    <button onClick={(e, status) => onClickUpdateStatus(e, status) }>In Progress</button>
+                    <button onClick={(e, status) => onClickUpdateStatus(e, status)}>Done</button>
                 </div>
             )
         } else if( status === "inProgress"){
             return(
                 <div className="status-buttons">
                     <p>Move to:   </p>
-                    <button>Upcoming</button>
-                    <button>Done</button>
+                    <button onClick={(e, status) => onClickUpdateStatus(e, status)}>Upcoming</button>
+                    <button onClick={(e, status) => onClickUpdateStatus(e, status) }>Done</button>
                 </div>
             )
         } else if(status === "done"){
             return(
                 <div className="status-buttons">
                     <p>Move to:   </p>
-                    <button>Upcoming</button>
-                    <button>In Progress</button>
+                    <button onClick={(e, status) => onClickUpdateStatus(e, status) }>Upcoming</button>
+                    <button onClick={(e, status) => onClickUpdateStatus(e, status) }>In Progress</button>
                 </div>
 
             )
@@ -149,6 +167,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                 {
                     statusButtons(status)
                 }
+
             </div>
         </div>
     )
