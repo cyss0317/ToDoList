@@ -204,6 +204,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                 }
 
             </div>
+           
         </div>
     )
 }

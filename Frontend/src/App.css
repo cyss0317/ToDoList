@@ -309,7 +309,7 @@ background: linear-gradient(90deg, rgba(231,171,148,1) 2%, rgba(155,181,218,1) 9
   margin-bottom: 10px;
 }
 
-.modal{
+.modal-background{
   /* width: 100vw;
   height: 100vh;
   background-color: #22222290 */
@@ -321,5 +321,20 @@ background: linear-gradient(90deg, rgba(231,171,148,1) 2%, rgba(155,181,218,1) 9
   left: 0;
   background: rgba(0, 0, 0, 0.7);
   z-index: 10;
+
+}
+
+.modal-child {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 500px;
+	width: 400px;
+  background: linear-gradient(90deg, rgba(231,171,148,1) 2%, rgba(155,181,218,1) 93%);
+	display: flex;
+  border-radius: 10px;
+	justify-content: center;
+	align-items: center;
 
 }
