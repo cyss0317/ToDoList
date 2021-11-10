@@ -106,9 +106,20 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
     const removeTag = e => {
         e.preventDefault()
         const tagIndex = e.target.value
-        setTags(old => old = tagIndex === 0 ? old.slice(1) : old.slice(0 , tagIndex ).concat(old.slice(tagIndex + 1)))
-        
-        // setTags( old =>  old = old.splice(tagIndex, 1))
+        // setTags(old => old = tagIndex === 0 ? old.slice(1) : old.slice(0 , tagIndex ).concat(old.slice(tagIndex + 1)))
+        const tempTags = [...tags]
+        tempTags.splice(tagIndex, 1)
+        setTags( tempTags)
+        todoAPIUtil.updateTodo(
+            {
+                id: id,
+                description: todo.description,
+                dueDate: todo.dueDate,
+                done: todo.done,
+                inProgress: todo.inProgress,
+                tags: tempTags
+            }
+        )
 
     }
 
