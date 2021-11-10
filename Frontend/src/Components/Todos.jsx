@@ -46,25 +46,22 @@ const Todos = ({propTodos, title, status}) => {
             )
         }
     }
-    
-    const createSubmit = e => {
-        console.log("newDone from submit",newDone)
-        console.log("newProgress from submit",newProgress)
-        const newTodo = ({
-            description: newDescription,
-            dueDate: newDueDate,
-            done: newDone,
-            inProgress: newProgress,
-            tags: []
-        })
-        console.log("newTodo",newTodo)
-        todoAPIUtil.createTodo(newTodo)
-        const modal = document.querySelector(".modal")
-        modal.style.display = "none"
-    }
 
+    const newTodo = ({
+        description: newDescription,
+        dueDate: newDueDate,
+        done: newDone,
+        inProgress: newProgress,
+        tags: []
+    })
+    const setDescriptionOnChange = (e) => {
+        setNewDescription(e.target.value)
+    }
+    
+    
     const openModal = e => {
         e.preventDefault()
+        console.log(newTodo)
         const modal = document.querySelector(".modal-background")
         modal.style.display = "block"
         if (status === "done") {
@@ -78,16 +75,31 @@ const Todos = ({propTodos, title, status}) => {
             setNewProgress(false)
         }
     }
+    
 
-    const closeModal = e => {
-        const modal = document.querySelector(".modal-background")
+    console.log("newTodo",newTodo)
+
+
+    console.log('doneeeeeee', newDone)
+    window.newDone = newDone
+    const createSubmit = e => {
+        // console.log("newDone from submit",newDone)
+        // console.log("newProgress from submit",newProgress)
+        todoAPIUtil.createTodo(newTodo)
+        const modal = document.querySelector(".modal")
         modal.style.display = "none"
         setNewDone()
         setNewProgress()
     }
+    const closeModal = e => {
+        const modal = document.querySelector(".modal-background")
+        modal.style.display = "none"
+        // setNewDone()
+        // setNewProgress()
+    }
 
-    console.log("done",newDone)
-    console.log("prgress",newProgress)
+    // console.log("done",newDone)
+    // console.log("prgress",newProgress)
 
 
     return (
@@ -101,7 +113,7 @@ const Todos = ({propTodos, title, status}) => {
                     <TodoDisplay status={status} key={todo._id} id={todo._id} propTodo={todo} />
                 ))
             }
-            <div className="modal-background" style={{ display: "none" }}>
+            <div onClick={e => closeModal(e)} className="modal-background" style={{ display: "none" }}>
                 <div className="modal-child" onClick={e => e.stopPropagation()}>
                     <div className="status-x-button">
                         {
@@ -112,7 +124,8 @@ const Todos = ({propTodos, title, status}) => {
                     <form className="info-section" onSubmit={e => createSubmit(e)}>
                         {/* <label htmlFor="description">description</label> */}
                         <label htmlFor="descrition">Description</label>
-                        <textarea className="description-input" type="text" value={newDescription} onChange={e => setNewDescription(e.target.value)}/>
+                        <textarea className="description-input" type="text" value={newDescription} 
+                            onChange={e => setDescriptionOnChange(e)}/>
                         
                         <label htmlFor="dueDate">Due date:  </label>
                         <input type="date" value={newDueDate} onChange={e => setNewDueDate(e.target.value)}/>
