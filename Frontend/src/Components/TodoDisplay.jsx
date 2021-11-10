@@ -25,7 +25,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
         if(answer && status === "done"){
             setTodo(
                 {
-                    _id: id,
+                    id: id,
                     description: todo.description,
                     dueDate: todo.dueDate,
                     done: true,
@@ -36,7 +36,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
         } else if(answer && status === "inProgress") {
             setTodo(
                 {
-                    _id: id,
+                    id: id,
                     description: todo.description,
                     dueDate: todo.dueDate,
                     done: todo.done,
@@ -47,7 +47,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
         } else if( answer && status === "upcoming"){
             setTodo(
                 {
-                    _id: id,
+                    id: id,
                     description: todo.description,
                     dueDate: todo.dueDate,
                     done: false,
@@ -86,6 +86,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
             const tagsDup = [...tags, tag]
             setTags(old => [...old, tag]);
             const newTodo = {
+                id: id,
                 description: todo.description,
                 dueDate: todo.dueDate,
                 done: todo.done,
@@ -93,6 +94,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                 tags: tagsDup
             };
             setTodo(newTodo);
+            console.log("newTOdo", newTodo)
             await todoAPIUtil.updateTodo(newTodo)
                 .then(res => console.log(res.config.data))
         }
