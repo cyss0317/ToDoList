@@ -80,10 +80,21 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
         changeButton.style.display = "block"
     }
 
-    const submitTag = e => {
+    const submitTag = async e => {
         e.preventDefault();
         if( tag.length > 0){
+            const tagsDup = [...tags, tag]
             setTags(old => [...old, tag]);
+            const newTodo = {
+                description: todo.description,
+                dueDate: todo.dueDate,
+                done: todo.done,
+                inProgress: todo.inProgress,
+                tags: tagsDup
+            };
+            setTodo(newTodo);
+            await todoAPIUtil.updateTodo(newTodo)
+                .then(res => console.log(res.config.data))
         }
         setTag("");
         console.log(tags)
