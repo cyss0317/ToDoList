@@ -21,6 +21,31 @@ const Todos = ({propTodos, title, status}) => {
         
     },[todos])
 
+
+    console.log("status",status)
+
+    const statusTodo = status => {
+        if (status === "upcoming") {
+            //question,conditional redering not working
+            return (
+                <div >
+                     Add Upcoming Todo
+                </div>
+            )
+        } else if (status === "inProgress") {
+            return (
+                <div >
+                    Add In Progress Todo
+                </div>
+            )
+        } else if (status === "done") {
+            return (
+                <div >
+                    Add Done Todo
+                </div>
+            )
+        }
+    }
     
     const createSubmit = e => {
         console.log("newDone from submit",newDone)
@@ -79,7 +104,9 @@ const Todos = ({propTodos, title, status}) => {
             <div className="modal-background" style={{ display: "none" }}>
                 <div className="modal-child" onClick={e => e.stopPropagation()}>
                     <div className="status-x-button">
-                        <div>Add {status} todo</div>
+                        {
+                            statusTodo(status)
+                        }
                         <button onClick={e => closeModal(e)}id="modal-close-button" className="X-button">X</button>
                     </div>
                     <form className="info-section" onSubmit={e => createSubmit(e)}>
