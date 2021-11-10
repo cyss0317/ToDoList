@@ -17,18 +17,7 @@ const Todos = ({propTodos, title, status}) => {
         
     },[todos])
 
-    // const onClickSetStatus = e => {
-    //     if(status === "done"){
-    //         setNewDone(true)
-    //         setNewProgress(false)
-    //     } else if (status === " inProgress"){
-    //         setNewDone(false)
-    //         setNewProgress(true)
-    //     } else{
-    //         setNewDone(false)
-    //         setNewProgress(false)
-    //     }
-    // }
+
     const createSubmit = e => {
         const newTodo = {
             description: newDescription,
@@ -56,15 +45,22 @@ const Todos = ({propTodos, title, status}) => {
             setNewDone(false)
             setNewProgress(false)
         }
-
+        
     }
+
+    const closeModal = e => {
+        const modal = document.querySelector(".modal-background")
+        modal.style.display = "none"
+        setNewDone()
+        setNewProgress()
+    }
+
+    console.log("done",newDone)
+    console.log("prgress",newProgress)
 
 
     return (
         <div className="todos-container">
-            {/* <div className="modal" style={{display:"none"}}>
-
-            </div> */}
             <div className="title-addButton">
                 <h1 className="title">{title}</h1>
                 <button onClick={e => openModal(e)} className="addTodo">+ Add new todo</button>
@@ -76,15 +72,16 @@ const Todos = ({propTodos, title, status}) => {
             }
             <div className="modal-background" style={{ display: "none" }}>
                 <div className="modal-child" onClick={e => e.stopPropagation()}>
-                    <form onSubmit={e => createSubmit(e)}>
+                    <form className="info-section" onSubmit={e => createSubmit(e)}>
                         {/* <label htmlFor="description">description</label> */}
                         <label htmlFor="descrition">Description</label>
-                        <input type="text" value={newDescription} onChange={e => setNewDescription(e.target.value)}/>
+                        <textarea className="description-input" type="text" value={newDescription} onChange={e => setNewDescription(e.target.value)}/>
                         
                         <label htmlFor="dueDate">Due date:  </label>
                         <input type="date" value={newDueDate} onChange={e => setNewDueDate(e.target.value)}/>
                         <button>submit</button>
                     </form>
+                    <button id="modal-close-button" className="X-button">X</button>
                 </div>
             </div>
         </div>
