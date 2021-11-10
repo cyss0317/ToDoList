@@ -47,45 +47,58 @@ const Todos = ({propTodos, title, status}) => {
         }
     }
 
-    const newTodo = ({
-        description: newDescription,
-        dueDate: newDueDate,
-        done: newDone,
-        inProgress: newProgress,
-        tags: []
-    })
+    // const newTodo = ({
+    //     description: newDescription,
+    //     dueDate: newDueDate,
+    //     done: newDone,
+    //     inProgress: newProgress,
+    //     tags: []
+    // })
     const setDescriptionOnChange = (e) => {
         setNewDescription(e.target.value)
+
     }
+
     
     
     const openModal = e => {
         e.preventDefault()
-        console.log(newTodo)
+        // console.log(newTodo)
         const modal = document.querySelector(".modal-background")
         modal.style.display = "block"
-        if (status === "done") {
-            setNewDone(true)
-            setNewProgress(false)
-        } else if (status === "inProgress") {
-            setNewDone(false)
-            setNewProgress(true)
-        } else {
-            setNewDone(false)
-            setNewProgress(false)
-        }
+        // console.log(newTodo)
+        // if (status === "done") {
+        //     setNewDone(true)
+        //     setNewProgress(false)
+        // } else if (status === "inProgress") {
+        //     setNewDone(false)
+        //     setNewProgress(true)
+        // } else {
+        //     setNewDone(false)
+        //     setNewProgress(false)
+        // }
     }
     
 
-    console.log("newTodo",newTodo)
+    // console.log("newTodo",newTodo)
 
 
     console.log('doneeeeeee', newDone)
     window.newDone = newDone
     const createSubmit = e => {
+
         // console.log("newDone from submit",newDone)
         // console.log("newProgress from submit",newProgress)
-        todoAPIUtil.createTodo(newTodo)
+        // todoAPIUtil.createTodo(newTodo)
+
+        const newTodo = ({
+            description: newDescription,
+            dueDate: newDueDate,
+            done: status === "done" ? true : false,
+            inProgress: status === "inProgress" ? true : false,
+            tags: []
+        })
+        console.log("1231", newTodo)
         const modal = document.querySelector(".modal")
         modal.style.display = "none"
         setNewDone()
