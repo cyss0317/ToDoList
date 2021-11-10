@@ -308,3 +308,18 @@ background: linear-gradient(90deg, rgba(231,171,148,1) 2%, rgba(155,181,218,1) 9
 .todo{
   margin-bottom: 10px;
 }
+
+.modal{
+  /* width: 100vw;
+  height: 100vh;
+  background-color: #22222290 */
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+
+}

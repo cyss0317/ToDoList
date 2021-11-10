@@ -13,6 +13,9 @@ const Todos = ({propTodos, title, status}) => {
     },[todos])
 
     const createTodo = (e) => {
+        const modal = document.querySelector(".modal")
+        console.log(modal)
+        modal.style.display = "block"
         e.preventDefault()
         const newTodo = {
             description: "newTodo",
@@ -28,6 +31,9 @@ const Todos = ({propTodos, title, status}) => {
 
     return (
         <div className="todos-container">
+            {/* <div className="modal" style={{display:"none"}}>
+
+            </div> */}
             <div className="title-addButton">
                 <h1 className="title">{title}</h1>
                 <button onClick={e => createTodo(e)} className="addTodo">+ Add new todo</button>
