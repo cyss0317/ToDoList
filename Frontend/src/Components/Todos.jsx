@@ -25,13 +25,13 @@ const Todos = ({propTodos, title, status}) => {
     const createSubmit = e => {
         console.log("newDone from submit",newDone)
         console.log("newProgress from submit",newProgress)
-        const newTodo = {
+        const newTodo = ({
             description: newDescription,
             dueDate: newDueDate,
             done: newDone,
             inProgress: newProgress,
             tags: []
-        }
+        })
         console.log("newTodo",newTodo)
         todoAPIUtil.createTodo(newTodo)
         const modal = document.querySelector(".modal")
@@ -87,7 +87,7 @@ const Todos = ({propTodos, title, status}) => {
                         <input type="date" value={newDueDate} onChange={e => setNewDueDate(e.target.value)}/>
                         <button>submit</button>
                     </form>
-                    <button id="modal-close-button" className="X-button">X</button>
+                    <button onClick={e => closeModal(e)}id="modal-close-button" className="X-button">X</button>
                 </div>
             </div>
         </div>

@@ -329,6 +329,11 @@ input.dueDate[type="date"]::-webkit-calendar-picker-indicator {
 
 }
 
+.description-and-X ~ button{
+  cursor: pointer;
+}
+
+
 input[type="radio"] {
   -webkit-appearance: checkbox; /* Chrome, Safari, Opera */
   -moz-appearance: checkbox;    /* Firefox */

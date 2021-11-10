@@ -38,7 +38,7 @@ router.post("/create", (req, res) => {
         dueDate: req.body.dueDate ? req.body.dueDate : `${todayYear}-${todayMonth}-${todayDay}`,
         tags: []
     })
-    window.req = req.body
+
     newTodo.save()
         .then(newTodo => res.json(newTodo))
         .catch(err => console.log(err))
