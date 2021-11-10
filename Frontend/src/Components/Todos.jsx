@@ -78,6 +78,10 @@ const Todos = ({propTodos, title, status}) => {
             }
             <div className="modal-background" style={{ display: "none" }}>
                 <div className="modal-child" onClick={e => e.stopPropagation()}>
+                    <div className="status-x-button">
+                        <div>Add {status} todo</div>
+                        <button onClick={e => closeModal(e)}id="modal-close-button" className="X-button">X</button>
+                    </div>
                     <form className="info-section" onSubmit={e => createSubmit(e)}>
                         {/* <label htmlFor="description">description</label> */}
                         <label htmlFor="descrition">Description</label>
@@ -87,7 +91,6 @@ const Todos = ({propTodos, title, status}) => {
                         <input type="date" value={newDueDate} onChange={e => setNewDueDate(e.target.value)}/>
                         <button>submit</button>
                     </form>
-                    <button onClick={e => closeModal(e)}id="modal-close-button" className="X-button">X</button>
                 </div>
             </div>
         </div>

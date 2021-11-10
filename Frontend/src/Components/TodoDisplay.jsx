@@ -63,6 +63,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
     const deleteTodo = (e) => {
         e.preventDefault();
         todoAPIUtil.deleteTodo(id)
+        //question, it deletes but doesn't re-render
         setTodo({})
     }
 
