@@ -102,6 +102,17 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
         console.log(tags)
 
     }
+
+    const removeTag = e => {
+        e.preventDefault()
+        const tagIndex = e.target.value
+        setTags(old => old = tagIndex === 0 ? old.slice(1) : old.slice(0 , tagIndex ).concat(old.slice(tagIndex + 1)))
+        
+        // setTags( old =>  old = old.splice(tagIndex, 1))
+
+    }
+
+    console.log(tags)
     
     const statusButtons = status => {
         if(status === "upcoming"){
@@ -152,7 +163,7 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
                     </div>
                     {
                         tags.map((tag, i) => (
-                            <button key={i}>{tag}</button>
+                            <button onClick={e => removeTag(e)} value={i} key={i}>{tag}</button>
                         ))
                     }
                     <form className="tag-input" onSubmit={e => submitTag(e)}>
