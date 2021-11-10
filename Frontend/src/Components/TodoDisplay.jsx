@@ -16,6 +16,35 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
 
     },[todo])
 
+    const onClickUpdateStatus = async (e, status) => {
+        e.preventDefault();
+        
+        if(status === "done"){
+            setTodo(
+                {
+                    _id: id,
+                    description: todo.description,
+                    dueDate: todo.dueDate,
+                    done: true,
+                    inProgress: todo.inProgress,
+                    tags: tags
+                }
+            )
+        } else {
+            setTodo(
+                {
+                    _id: id,
+                    description: todo.description,
+                    dueDate: todo.dueDate,
+                    done: todo.done,
+                    inProgress: true,
+                    tags: tags
+                }
+            )
+        } 
+        const response = await todoAPIUtil.updateTodo(todo)
+    }
+
     const deleteTodo = (e) => {
         e.preventDefault();
         todoAPIUtil.deleteTodo(id)
