@@ -31,12 +31,14 @@ router.post("/create", (req, res) => {
 
     const newTodo = new Todo({
         //question: 
+
         description: req.body.description,
-        done: false,
-        inProgress: false,
+        done: req.body.done,
+        inProgress: req.body.inProgress,
         dueDate: req.body.dueDate ? req.body.dueDate : `${todayYear}-${todayMonth}-${todayDay}`,
         tags: []
     })
+    window.req = req.body
     newTodo.save()
         .then(newTodo => res.json(newTodo))
         .catch(err => console.log(err))

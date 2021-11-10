@@ -5,10 +5,14 @@ import * as todoAPIUtil from "../util/todo_util"
 
 
 const Todos = ({propTodos, title, status}) => {
+    const currentDate = new Date();
+    const todayMonth = currentDate.getUTCMonth() + 1;
+    const todayDay = currentDate.getUTCDate();
+    const todayYear = currentDate.getUTCFullYear();
 
     const [todos, setTodos] = useState(propTodos)
     const [newDescription, setNewDescription] = useState("")
-    const [newDueDate, setNewDueDate] = useState()
+    const [newDueDate, setNewDueDate] = useState(`${todayYear}-${todayMonth}-${todayDay}`)
     const [newDone, setNewDone] = useState()
     const [newProgress, setNewProgress] = useState()
     const [todo, setTodo] = useState({})
@@ -17,8 +21,10 @@ const Todos = ({propTodos, title, status}) => {
         
     },[todos])
 
-
+    
     const createSubmit = e => {
+        console.log("newDone from submit",newDone)
+        console.log("newProgress from submit",newProgress)
         const newTodo = {
             description: newDescription,
             dueDate: newDueDate,
@@ -26,6 +32,7 @@ const Todos = ({propTodos, title, status}) => {
             inProgress: newProgress,
             tags: []
         }
+        console.log("newTodo",newTodo)
         todoAPIUtil.createTodo(newTodo)
         const modal = document.querySelector(".modal")
         modal.style.display = "none"
@@ -45,7 +52,6 @@ const Todos = ({propTodos, title, status}) => {
             setNewDone(false)
             setNewProgress(false)
         }
-        
     }
 
     const closeModal = e => {
