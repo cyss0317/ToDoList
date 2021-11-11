@@ -3,4 +3,7 @@ node/
 
 **/Frontend/node_modules/**
 **/Frontend/node//**
-keys.js
+config/keys.js
+config/keys_dev.js
+
+

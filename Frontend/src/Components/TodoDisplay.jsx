@@ -169,7 +169,7 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
     const [dueYear, dueMonth, dueDay] = newDueDate.split("-");
     
     if(parseInt(dueYear) < todayYear || parseInt(dueMonth) < todayMonth || parseInt(dueDay) < todayDay) pastDue = true;
-     
+
 
     if(todo !== undefined){
 

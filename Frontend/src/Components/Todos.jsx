@@ -7,7 +7,7 @@ import * as todoAPIUtil from "../util/todo_util"
 const Todos = ({propTodos, title, status, setPropTodos, number}) => {
     const currentDate = new Date();
     const todayMonth = currentDate.getUTCMonth() + 1;
-    const todayDay = currentDate.getUTCDate() - 1;
+    const todayDay = currentDate.getUTCDate();
     const todayYear = currentDate.getUTCFullYear();
     
     const [newDescription, setNewDescription] = useState("")
