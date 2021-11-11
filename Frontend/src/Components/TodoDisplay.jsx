@@ -3,7 +3,7 @@ import {useState, useEffect} from "react"
 import * as todoAPIUtil from "../util/todo_util"
 
 
-const TodoDisplay = ({props, propTodo, id, status}) => {
+const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
     const [todo, setTodo] = useState(propTodo)
     const [tags, setTags] = useState(propTodo.tags);
     const [tag, setTag] = useState("");
@@ -62,6 +62,14 @@ const TodoDisplay = ({props, propTodo, id, status}) => {
 
     const deleteTodo = (e) => {
         e.preventDefault();
+        console.log(todos)
+
+        // console.log("newtodos", newTodos)
+        setTodos(old => 
+            old.filter(todo => {
+            if (todo.id !== id) return todo
+        })
+        )
         todoAPIUtil.deleteTodo(id)
         //question, it deletes but doesn't re-render
         setTodo({})

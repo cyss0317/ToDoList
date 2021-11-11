@@ -4,19 +4,25 @@ import TodoDisplay from "./TodoDisplay"
 import * as todoAPIUtil from "../util/todo_util"
 
 
-const Todos = ({propTodos, title, status}) => {
+const Todos = ({propTodos, title, status, todos, setTodos}) => {
     const currentDate = new Date();
     const todayMonth = currentDate.getUTCMonth() + 1;
     const todayDay = currentDate.getUTCDate();
     const todayYear = currentDate.getUTCFullYear();
-
-    const [todos, setTodos] = useState(propTodos)
+    
     const [newDescription, setNewDescription] = useState("")
     const [newDueDate, setNewDueDate] = useState(`${todayYear}-${todayMonth}-${todayDay}`)
     const [newDone, setNewDone] = useState()
     const [newProgress, setNewProgress] = useState()
     const [todo, setTodo] = useState({})
-
+    let newTodo = ({
+        description: newDescription,
+        dueDate: newDueDate,
+        done: status === "done" ? true : false,
+        inProgress: status === "inProgress" ? true : false,
+        tags: []
+    })
+    
     useEffect( () => {
         setTodo({
             description: newDescription,
@@ -28,42 +34,37 @@ const Todos = ({propTodos, title, status}) => {
     },[newDescription])
 
 
-    console.log("title",title)
+
 
     const statusTodo = status => {
-        if (status === "Upcoming") {
-            //question, status conditional redering not working
-            return (
-                <div >
-                     Add Upcoming Todo
-                </div>
-            )
-        } else if (status === "In Progress") {
-            console.log("gggggggg", status === "In Progress")
-            return (
-                <div >
-                    Add In Progress Todo
-                </div>
-            )
-        } else if (status === "Done") {
-            return (
-                <div >
-                    Add Done Todo
-                </div>
-            )
-        }
+            if (status === "Upcoming") {
+                //question, status conditional redering not working
+                return (
+                    <div >
+                         Add Upcoming Todo
+                    </div>
+                )
+            } else if (status === "In Progress") {
+                console.log("gggggggg", status === "In Progress")
+                return (
+                    <div >
+                        Add In Progress Todo
+                    </div>
+                )
+            } else if (status === "Done") {
+                return (
+                    <div >
+                        Add Done Todo
+                    </div>
+                )
+            }
     }
 
     const setDescriptionOnChange = (e) => {
+        console.log("current Status in setDescription", status)
+        // debugger
         setNewDescription(e.target.value)
-        console.log(todo)
-        // const newTodo = ({
-        //     description: newDescription,
-        //     dueDate: newDueDate,
-        //     done: newDone,
-        //     inProgress: newProgress,
-        //     tags: []
-        // })
+        console.log(newTodo)
 
     }
 
@@ -71,45 +72,30 @@ const Todos = ({propTodos, title, status}) => {
     
     const openModal = e => {
         e.preventDefault()
-        // console.log(newTodo)
+        console.log("status when openModal", status)
+        console.log(newTodo)
         const modal = document.querySelector(".modal-background")
         modal.style.display = "block"
-        // console.log(newTodo)
-        // if (status === "done") {
-        //     setNewDone(true)
-        //     setNewProgress(false)
-        // } else if (status === "inProgress") {
-        //     setNewDone(false)
-        //     setNewProgress(true)
-        // } else {
-        //     setNewDone(false)
-        //     setNewProgress(false)
-        // }
+
     }
     
 
     // console.log("newTodo",newTodo)
 
 
-    console.log('doneeeeeee', newDone)
     window.newDone = newDone
-    const createSubmit = e => {
-
+    const createSubmit = (e, status) => {
+        e.preventDefault()
         //question, it wouldn't rerender after creation
-
+        
         // console.log("newDone from submit",newDone)
         // console.log("newProgress from submit",newProgress)
-        // todoAPIUtil.createTodo(newTodo)
+        
+        // debugger
+        setTodos(old => [...old, newTodo])
+        todoAPIUtil.createTodo(newTodo)
 
-// const newTodo = ({
-//     description: newDescription,
-//     dueDate: newDueDate,
-//     done: status === "done" ? true : false,
-//     inProgress: status === "inProgress" ? true : false,
-//     tags: []
-// })
-        console.log("newTodo", todo)
-        const modal = document.querySelector(".modal")
+        const modal = document.querySelector(".modal-background")
         modal.style.display = "none"
         setNewDone()
         setNewProgress()
@@ -123,7 +109,6 @@ const Todos = ({propTodos, title, status}) => {
 
     // console.log("done",newDone)
     // console.log("prgress",newProgress)
-console.log("status", status)
 
     return (
         <div className="todos-container">
@@ -134,19 +119,16 @@ console.log("status", status)
             </div>
             {
                 propTodos.map(todo => (
-                    <TodoDisplay status={status} key={todo._id} id={todo._id} propTodo={todo} />
+                    <TodoDisplay todos={todos} setTodos={setTodos} status={status} key={todo._id} id={todo._id} propTodo={todo} />
                 ))
             }
             <div onClick={e => closeModal(e)} className="modal-background" style={{ display: "none" }}>
                 <div className="modal-child" onClick={e => e.stopPropagation()}>
                     <div className="status-x-button">
-
-                        {   
-                            statusTodo(title)
-                        }
+                    <div>Create {title} todos</div>
                         <button onClick={e => closeModal(e)}id="modal-close-button" className="X-button">X</button>
                     </div>
-                    <form className="info-section" onSubmit={e => createSubmit(e)}>
+                    <form className="info-section" onSubmit={(e, status) => createSubmit(e, status)}>
                         {/* <label htmlFor="description">description</label> */}
                         <label htmlFor="descrition">Description</label>
                         <textarea className="description-input" type="text" value={newDescription} 
