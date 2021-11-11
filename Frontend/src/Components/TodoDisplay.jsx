@@ -32,7 +32,17 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                     inProgress: todo.inProgress,
                     tags: tags
                 }
-            setTodo(old => newTodo)    
+            setTodo(old => newTodo) 
+            setTodos(old =>
+                old.map(oldTodo => {
+                    if (oldTodo.id === id) {
+                        return (
+                            newTodo
+                        )
+                    }
+                })
+
+            )
         } else if (answer && e.target.value === "In Progress") {
             newTodo =
                 {
@@ -43,7 +53,17 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                     inProgress: true,
                     tags: tags
                 }
-            setTodo(newTodo)
+            setTodo(old => newTodo)
+            setTodos(old =>
+                old.map(oldTodo => {
+                    if (oldTodo.id === id) {
+                        return (
+                            newTodo
+                        )
+                    }
+                })
+                
+            )
         } else if (answer && e.target.value === "Upcoming"){
             newTodo =
                 {
@@ -54,7 +74,16 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                     inProgress: false,
                     tags: tags
                 }
-            setTodo(newTodo)
+            setTodo(old => newTodo)
+            setTodos( old => 
+                old.map(oldTodo => {
+                    if(oldTodo.id === id){
+                        return(
+                            newTodo
+                        )
+                    }
+                })    
+            )
         }
             console.log("newtodo", newTodo)
             todoAPIUtil.updateTodo(newTodo)
