@@ -7,7 +7,7 @@ import * as todoAPIUtil from "../util/todo_util"
 const Todos = ({propTodos, title, status, setPropTodos}) => {
     const currentDate = new Date();
     const todayMonth = currentDate.getUTCMonth() + 1;
-    const todayDay = currentDate.getUTCDate();
+    const todayDay = currentDate.getUTCDate() - 1;
     const todayYear = currentDate.getUTCFullYear();
     
     const [newDescription, setNewDescription] = useState("")
@@ -16,7 +16,8 @@ const Todos = ({propTodos, title, status, setPropTodos}) => {
     const [newProgress, setNewProgress] = useState()
     const [todos, setTodos] = useState(propTodos)
     const [todo, setTodo] = useState({})
-
+    window.todos = todos
+    window.propTodos = propTodos
     let newTodo = ({
         description: newDescription,
         dueDate: newDueDate,
@@ -76,7 +77,7 @@ const Todos = ({propTodos, title, status, setPropTodos}) => {
         e.preventDefault()
         console.log("status when openModal", status)
         console.log(newTodo)
-        const modal = document.querySelector(".modal-background")
+        const modal = document.querySelector(`.modal-background-${status}`)
         modal.style.display = "block"
 
     }
@@ -98,13 +99,12 @@ const Todos = ({propTodos, title, status, setPropTodos}) => {
         setTodos(old => [...old, newTodo])
         todoAPIUtil.createTodo(newTodo)
 
-        const modal = document.querySelector(".modal-background")
+        const modal = document.querySelector(`.modal-background-${status}`)
         modal.style.display = "none"
-        setNewDone()
-        setNewProgress()
+
     }
     const closeModal = e => {
-        const modal = document.querySelector(".modal-background")
+        const modal = document.querySelector(`.modal-background-${status}`)
         modal.style.display = "none"
         // setNewDone()
         // setNewProgress()
@@ -112,39 +112,45 @@ const Todos = ({propTodos, title, status, setPropTodos}) => {
 
     // console.log("done",newDone)
     // console.log("prgress",newProgress)
+    if(todos !== undefined){
 
-    return (
-        <div className="todos-container">
-            <div className="title-addButton">
-{/* it's fine rendering title */}
-                <h1 className="title">{title}</h1>
-                <button onClick={e => openModal(e)} className="addTodo">+ Add new todo</button>
-            </div>
-            {
-                todos.map(todo => (
-                    <TodoDisplay todos={todos} setTodos={setTodos} status={status} key={todo._id} id={todo._id} propTodo={todo} />
-                ))
-            }
-            <div onClick={e => closeModal(e)} className="modal-background" style={{ display: "none" }}>
-                <div className="modal-child" onClick={e => e.stopPropagation()}>
-                    <div className="status-x-button">
-                    <div>Create {title} todos</div>
-                        <button onClick={e => closeModal(e)}id="modal-close-button" className="X-button">X</button>
+        return (
+            <div className="todos-container">
+                <div className="title-addButton">
+    {/* it's fine rendering title */}
+                    <h1 className="title">{title}</h1>
+                    <button onClick={e => openModal(e)} className="addTodo">+ Add new todo</button>
+                </div>
+                {
+                    propTodos.map(todo => (
+                        <TodoDisplay todos={todos} setTodos={setTodos} status={status} key={todo._id} id={todo._id} propTodo={todo} />
+                    ))
+                }
+                <div onClick={e => closeModal(e)} id="modal-background" className={`modal-background-${status}`} style={{ display: "none" }}>
+                    <div className="modal-child" onClick={e => e.stopPropagation()}>
+                        <div className="status-x-button">
+                        <div>Create {title} todos</div>
+                            <button onClick={e => closeModal(e)}id="modal-close-button" className="X-button">X</button>
+                        </div>
+                        <form className="info-section" onSubmit={(e, status) => createSubmit(e, status)}>
+                            {/* <label htmlFor="description">description</label> */}
+                            <label htmlFor="descrition">Description</label>
+                            <textarea className="description-input" type="text" value={newDescription} 
+                                onChange={e => setDescriptionOnChange(e)}/>
+                            
+                            <label htmlFor="dueDate">Due date:  </label>
+                            <input type="date" value={newDueDate} onChange={e => setNewDueDate(e.target.value)}/>
+                            <button>submit</button>
+                        </form>
                     </div>
-                    <form className="info-section" onSubmit={(e, status) => createSubmit(e, status)}>
-                        {/* <label htmlFor="description">description</label> */}
-                        <label htmlFor="descrition">Description</label>
-                        <textarea className="description-input" type="text" value={newDescription} 
-                            onChange={e => setDescriptionOnChange(e)}/>
-                        
-                        <label htmlFor="dueDate">Due date:  </label>
-                        <input type="date" value={newDueDate} onChange={e => setNewDueDate(e.target.value)}/>
-                        <button>submit</button>
-                    </form>
                 </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return(
+            <p>Loading...</p>
+        )
+    }
 }
 
 export default Todos

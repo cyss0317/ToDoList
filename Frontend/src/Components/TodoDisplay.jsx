@@ -18,7 +18,7 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
     const onClickUpdateStatus =  e => {
         e.preventDefault();
         let newTodo = {};
-        const answer = window.confirm(`Move this to ${status}?`)
+        const answer = window.confirm(`Move this to ${e.target.innerHTML}?`)
         if(!answer) return ;
 
         //question, it updates but won't re-render
@@ -32,14 +32,14 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                     inProgress: todo.inProgress,
                     tags: tags
                 }
-            setTodo(newTodo)    
+            setTodo(old => newTodo)    
         } else if (answer && e.target.value === "In Progress") {
             newTodo =
                 {
                     id: id,
                     description: todo.description,
                     dueDate: todo.dueDate,
-                    done: todo.done,
+                    done: false,
                     inProgress: true,
                     tags: tags
                 }
