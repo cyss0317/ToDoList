@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect } from "react";
+import {useState } from "react";
 import TodoDisplay from "./TodoDisplay"
 import * as todoAPIUtil from "../util/todo_util"
 
@@ -12,16 +12,12 @@ const Todos = ({propTodos, title, status, setPropTodos, number}) => {
     
     const [newDescription, setNewDescription] = useState("")
     const [newDueDate, setNewDueDate] = useState(`${todayYear}-${todayMonth}-${todayDay}`)
-    const [newDone, setNewDone] = useState()
-    const [newProgress, setNewProgress] = useState()
     const [todos, setTodos] = useState(propTodos)
-    const [todo, setTodo] = useState({})
     const modal = document.querySelector(`.modal-background-${status}`)
     const textArea = document.querySelector(`.description-input-${status}`)
     const textAreas = document.querySelectorAll(`#description-input`)
 
-    window.todos = todos
-    window.propTodos = propTodos
+
     let newTodo = ({
         description: newDescription,
         dueDate: newDueDate,
@@ -45,6 +41,7 @@ const Todos = ({propTodos, title, status, setPropTodos, number}) => {
         todoAPIUtil.createTodo(newTodo)
         setPropTodos(old => [...old, newTodo])
         textArea.value = ""
+        textAreas.forEach(textarea => textarea.value = "")
         modal.style.display = "none"
     }
 
@@ -61,7 +58,7 @@ const Todos = ({propTodos, title, status, setPropTodos, number}) => {
                 </div>
                 {
                     propTodos.map(todo => (
-                        <TodoDisplay todos={todos} setTodos={setTodos} status={status} key={todo._id} id={todo._id} propTodo={todo} />
+                        <TodoDisplay todos={todos} setTodos={setPropTodos} status={status} key={todo._id} id={todo._id} propTodo={todo} />
                     ))
                 }
                 <div onClick={e => closeModal(e)} id="modal-background" className={`modal-background-${status}`} style={{ display: "none" }}>

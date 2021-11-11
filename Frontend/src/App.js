@@ -5,9 +5,6 @@ import Todos from "./Components/Todos";
 import * as todoAPIUtil from "./util/todo_util"
 
 
-
-
-
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [unDones, setUnDones] = useState([]);

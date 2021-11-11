@@ -10,11 +10,6 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
     const [newDueDate, setNewDueDate] = useState(propTodo.dueDate);
 
 
-    
-    useEffect(() => {
-
-    },[setTodo])
-
     const onClickUpdateStatus =  e => {
         e.preventDefault();
         let newTodo = {};
@@ -194,8 +189,6 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                         <form className="tag-input" onSubmit={e => submitTag(e)}>
                             <input type="text" onChange={e => setTag(e.target.value) }  value={tag} placeholder="Add Tags to this"/>
                         </form>
-                        {/* <form action=""> */}
-                            {/* <button onClick={e => expandTag(e)} className="current-dueDate" >Due: {todo.dueDate}</button> */}
                         <form className="change-dueDates-container">
                             <div className="due-date-hover-effect">
                                 <span>Due: </span>< input type="date" className="dueDate" onChange={e => dueDateOnChange(e)}
@@ -205,7 +198,6 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                             </div>
                              <button id={id} className="change-dueDate-button" style={{display:"none"}}>Click to change</button>
                         </form>
-                        {/* </form> */}
                         {
                             pastDue ? 
                             <p style={{color: "red"}}>Past Due</p>
@@ -216,9 +208,7 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                     {
                         statusButtons(status)
                     }
-    
                 </div>
-               
             </div>
         )
     } else {
