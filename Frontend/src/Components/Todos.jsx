@@ -4,7 +4,7 @@ import TodoDisplay from "./TodoDisplay"
 import * as todoAPIUtil from "../util/todo_util"
 
 
-const Todos = ({propTodos, title, status, setPropTodos}) => {
+const Todos = ({propTodos, title, status, setPropTodos, number}) => {
     const currentDate = new Date();
     const todayMonth = currentDate.getUTCMonth() + 1;
     const todayDay = currentDate.getUTCDate() - 1;
@@ -29,90 +29,35 @@ const Todos = ({propTodos, title, status, setPropTodos}) => {
         inProgress: status === "inProgress" ? true : false,
         tags: []
     })
-    
-    useEffect( () => {
-        setTodo({
-            description: newDescription,
-            done: "",
-            inProgress: "",
-            dueDate: "",
-            tag: []
-        })
-    },[newDescription])
 
-
-
-
-    const statusTodo = status => {
-            if (status === "Upcoming") {
-                //question, status conditional redering not working
-                return (
-                    <div >
-                         Add Upcoming Todo
-                    </div>
-                )
-            } else if (status === "In Progress") {
-                console.log("gggggggg", status === "In Progress")
-                return (
-                    <div >
-                        Add In Progress Todo
-                    </div>
-                )
-            } else if (status === "Done") {
-                return (
-                    <div >
-                        Add Done Todo
-                    </div>
-                )
-            }
-    }
 
     const setDescriptionOnChange = (e) => {
-        console.log("current Status in setDescription", status)
-        // debugger
         setNewDescription(e.target.value)
-        console.log(newTodo)
-
     }
 
-    
-    
     const openModal = e => {
         e.preventDefault()
-        console.log("status when openModal", status)
-        console.log(newTodo)
-
         modal.style.display = "block"
-
     }
-    //answer
-    //on click, it might open up a modal from other container, maybe I need to specify the class name
 
-    // console.log("newTodo",newTodo)
-
-
-    window.newDone = newDone
     const createSubmit = (e, status) => {
         e.preventDefault()
-        // debugger
-        setTodos(old => [...old, newTodo])
         todoAPIUtil.createTodo(newTodo)
-        console.log(textArea)
-        debugger
-        textArea.innerHTML = ""
+        setPropTodos(old => [...old, newTodo])
         textArea.value = ""
         modal.style.display = "none"
     }
+
     const closeModal = e => {
         modal.style.display = "none"
     }
 
     if(todos !== undefined){
         return (
-            <div className="todos-container">
+            <div key={number} className="todos-container">
                 <div className="title-addButton">
-                    <h1 className="title">{title}</h1>
-                    <button onClick={e => openModal(e)} className="addTodo">+ Add new {title} todo</button>
+                    <h1 className="title">{title}&nbsp;&nbsp;{propTodos.length}</h1>
+                    <button onClick={e => openModal(e)} className="addTodo">+ Add new {title} todo </button>
                 </div>
                 {
                     propTodos.map(todo => (
@@ -126,7 +71,6 @@ const Todos = ({propTodos, title, status, setPropTodos}) => {
                             <button onClick={e => closeModal(e)}id="modal-close-button" className="X-button">X</button>
                         </div>
                         <form className="info-section" onSubmit={(e, status) => createSubmit(e, status)}>
-                            {/* <label htmlFor="description">description</label> */}
                             <label htmlFor="descrition">Description</label>
                             <textarea id="description-input" className={`description-input-${status}`} type="text" value={newDescription} 
                                 onChange={e => setDescriptionOnChange(e)}/>

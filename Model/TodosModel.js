@@ -23,7 +23,6 @@ const TodoSchema = new Schema({
         type: Array
     }
 }
-    // {timestamps: true}
 );
 
 const Todo = mongoose.model("todo", TodoSchema)

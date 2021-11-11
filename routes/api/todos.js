@@ -30,8 +30,6 @@ router.post("/create", (req, res) => {
     const todayYear = currentDate.getUTCFullYear();
 
     const newTodo = new Todo({
-        //question: 
-
         description: req.body.description,
         done: req.body.done,
         inProgress: req.body.inProgress,
@@ -48,12 +46,8 @@ router.delete("/:id", (req, res) => {
     const todo = Todo.findOneAndRemove({_id: req.params.id})
         .then( () => res.json({todoDeleted: "Successfully delete"}))
         .catch( err => res.status(404).json(err))
-        // .then( todo => Todo.remove(todo))
-        // .then( () => res.json({message: "Successfully deleted"}))
-        // .catch(err => res.status(404).json(err))
 })
 
-//question: 
 router.put("/:id", (req, res)=> {
     Todo.findOneAndUpdate({_id: req.params.id},
         {
@@ -62,10 +56,6 @@ router.put("/:id", (req, res)=> {
             inProgress: req.body.inProgress,
             dueDate: req.body.dueDate,
             tags: req.body.tags
-            // description: req.body.description ? req.body.description : res.body.description,
-            // done: req.body.done ? req.body.done : res.body.done,
-            // inProgress: req.body.inProgress ? req.body.inProgress : res.body.inProgress,
-            // dueDate: req.body.dueDate ? req.body.dueDate : res.body.dueDate
         }, {new: true}, (err, data) => {
             data ? res.json(data) : res.json(err)
         }    

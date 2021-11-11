@@ -19,10 +19,10 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
         e.preventDefault();
         let newTodo = {};
         const answer = window.confirm(`Move this to ${e.target.innerHTML}?`)
+ 
         if(!answer) return ;
-
-        //question, it updates but won't re-render
         if(answer && e.target.value === "Done"){
+            
             newTodo =
                 {
                     id: id,
@@ -32,17 +32,15 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                     inProgress: todo.inProgress,
                     tags: tags
                 }
+            const newTodos = todos.map(todo => {
+                if (todo.id === id) {
+                    return newTodo
+                } else {
+                    return todo
+                }
+            })
             setTodo(old => newTodo) 
-            setTodos(old =>
-
-                old.map(oldTodo => {
-                    if (oldTodo.id === id) {
-                        return newTodo
-                    } else {
-                        return oldTodo
-                    }
-                })
-            )
+            setTodos(old =>newTodos)
         } else if (answer && e.target.value === "In Progress") {
             newTodo =
                 {
@@ -53,17 +51,15 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                     inProgress: true,
                     tags: tags
                 }
+            const newTodos = todos.map(todo => {
+                if (todo.id === id) {
+                    return newTodo
+                } else {
+                    return todo
+                }
+            })
             setTodo(old => newTodo)
-            setTodos(old =>
-
-                old.map(oldTodo => {
-                    if(oldTodo.id === id ){
-                        return newTodo
-                    } else{
-                        return oldTodo
-                    }
-                })
-            )
+            setTodos(old => newTodos)
         } else if (answer && e.target.value === "Upcoming"){
             newTodo =
                 {
@@ -74,27 +70,22 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                     inProgress: false,
                     tags: tags
                 }
+            const newTodos = todos.map(todo => {
+                if (todo.id === id) {
+                    return newTodo
+                } else {
+                    return todo
+                }
+            })
             setTodo(old => newTodo)
-            setTodos(old =>
-
-                old.map(oldTodo => {
-                    if (oldTodo.id === id) {
-                        return newTodo
-                    } else {
-                        return oldTodo
-                    }
-                })
-            )
+            setTodos(old => newTodos)
         }
-            console.log("newtodo", newTodo)
             todoAPIUtil.updateTodo(newTodo)
     }
 
     const deleteTodo = (e) => {
         e.preventDefault();
-        console.log(todos)
         todoAPIUtil.deleteTodo(id)
-        //question, it deletes but doesn't re-render
         setTodo(old => undefined)
     }
 
@@ -107,7 +98,7 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
         changeButton.style.display = "block"
     }
 
-    const submitTag = async e => {
+    const submitTag =  e => {
         e.preventDefault();
         if( tag.length > 0){
             const tagsDup = [...tags, tag]
@@ -121,7 +112,7 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                 tags: tagsDup
             };
             setTodo(newTodo);
-            await todoAPIUtil.updateTodo(newTodo)
+             todoAPIUtil.updateTodo(newTodo)
         }
         setTag("");
 
@@ -130,7 +121,6 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
     const removeTag = e => {
         e.preventDefault()
         const tagIndex = e.target.value
-        // setTags(old => old = tagIndex === 0 ? old.slice(1) : old.slice(0 , tagIndex ).concat(old.slice(tagIndex + 1)))
         const tempTags = [...tags]
         tempTags.splice(tagIndex, 1)
         setTags( tempTags)
@@ -181,7 +171,6 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
     const todayMonth = currentDate.getUTCMonth() + 1;
     const todayDay = currentDate.getUTCDate();
     const todayYear = currentDate.getUTCFullYear();
-
     const [dueYear, dueMonth, dueDay] = newDueDate.split("-");
     
     if(parseInt(dueYear) < todayYear || parseInt(dueMonth) < todayMonth || parseInt(dueDay) < todayDay) pastDue = true;
