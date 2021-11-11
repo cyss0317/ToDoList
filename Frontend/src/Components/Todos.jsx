@@ -4,7 +4,7 @@ import TodoDisplay from "./TodoDisplay"
 import * as todoAPIUtil from "../util/todo_util"
 
 
-const Todos = ({propTodos, title, status, todos, setTodos}) => {
+const Todos = ({propTodos, title, status, setPropTodos}) => {
     const currentDate = new Date();
     const todayMonth = currentDate.getUTCMonth() + 1;
     const todayDay = currentDate.getUTCDate();
@@ -14,7 +14,9 @@ const Todos = ({propTodos, title, status, todos, setTodos}) => {
     const [newDueDate, setNewDueDate] = useState(`${todayYear}-${todayMonth}-${todayDay}`)
     const [newDone, setNewDone] = useState()
     const [newProgress, setNewProgress] = useState()
+    const [todos, setTodos] = useState(propTodos)
     const [todo, setTodo] = useState({})
+
     let newTodo = ({
         description: newDescription,
         dueDate: newDueDate,
@@ -78,7 +80,8 @@ const Todos = ({propTodos, title, status, todos, setTodos}) => {
         modal.style.display = "block"
 
     }
-    
+    //answer
+    //on click, it might open up a modal from other container, maybe I need to specify the class name
 
     // console.log("newTodo",newTodo)
 
@@ -118,7 +121,7 @@ const Todos = ({propTodos, title, status, todos, setTodos}) => {
                 <button onClick={e => openModal(e)} className="addTodo">+ Add new todo</button>
             </div>
             {
-                propTodos.map(todo => (
+                todos.map(todo => (
                     <TodoDisplay todos={todos} setTodos={setTodos} status={status} key={todo._id} id={todo._id} propTodo={todo} />
                 ))
             }

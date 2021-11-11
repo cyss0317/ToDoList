@@ -63,16 +63,9 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
     const deleteTodo = (e) => {
         e.preventDefault();
         console.log(todos)
-
-        // console.log("newtodos", newTodos)
-        setTodos(old => 
-            old.filter(todo => {
-            if (todo.id !== id) return todo
-        })
-        )
         todoAPIUtil.deleteTodo(id)
         //question, it deletes but doesn't re-render
-        setTodo({})
+        setTodo(old => undefined)
     }
 
 
@@ -164,49 +157,56 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
     if(parseInt(dueYear) < todayYear || parseInt(dueMonth) < todayMonth || parseInt(dueDay) < todayDay) pastDue = true;
      
 
-    return (
-        <div className="todo" value={id} draggable="true">
-            <div className="todo-sub">
-                <div >
-                    <div className="description-and-X">
-                        <p className="description">{todo.description}</p>
-                        <button onClick={e => deleteTodo(e)} style={{display: "block"}} className="X-button">X</button>
+    if(todo !== undefined){
+
+        return (
+            <div className="todo" value={id} draggable="true">
+                <div className="todo-sub">
+                    <div >
+                        <div className="description-and-X">
+                            <p className="description">{todo.description}</p>
+                            <button onClick={e => deleteTodo(e)} style={{display: "block"}} className="X-button">X</button>
+                        </div>
+                        {
+                            tags.map((tag, i) => (
+                                <button onClick={e => removeTag(e)} value={i} key={i}>{tag}</button>
+                            ))
+                        }
+                        <form className="tag-input" onSubmit={e => submitTag(e)}>
+                            <input type="text" onChange={e => setTag(e.target.value) }  value={tag} placeholder="Add Tags to this"/>
+                        </form>
+                        {/* <form action=""> */}
+                            {/* <button onClick={e => expandTag(e)} className="current-dueDate" >Due: {todo.dueDate}</button> */}
+                        <form className="change-dueDates-container">
+                            <div className="due-date-hover-effect">
+                                <span>Due: </span>< input type="date" className="dueDate" onChange={e => dueDateOnChange(e)}
+                                defaultValue={newDueDate} >
+                                </input >
+    
+                            </div>
+                             <button id={id} className="change-dueDate-button" style={{display:"none"}}>Click to change</button>
+                        </form>
+                        {/* </form> */}
+                        {
+                            pastDue ? 
+                            <p style={{color: "red"}}>Past Due</p>
+                            :
+                            <></>
+                        }
                     </div>
                     {
-                        tags.map((tag, i) => (
-                            <button onClick={e => removeTag(e)} value={i} key={i}>{tag}</button>
-                        ))
+                        statusButtons(status)
                     }
-                    <form className="tag-input" onSubmit={e => submitTag(e)}>
-                        <input type="text" onChange={e => setTag(e.target.value) }  value={tag} placeholder="Add Tags to this"/>
-                    </form>
-                    {/* <form action=""> */}
-                        {/* <button onClick={e => expandTag(e)} className="current-dueDate" >Due: {todo.dueDate}</button> */}
-                    <form className="change-dueDates-container">
-                        <div className="due-date-hover-effect">
-                            <span>Due: </span>< input type="date" className="dueDate" onChange={e => dueDateOnChange(e)}
-                            defaultValue={newDueDate} >
-                            </input >
-
-                        </div>
-                         <button id={id} className="change-dueDate-button" style={{display:"none"}}>Click to change</button>
-                    </form>
-                    {/* </form> */}
-                    {
-                        pastDue ? 
-                        <p style={{color: "red"}}>Past Due</p>
-                        :
-                        <></>
-                    }
+    
                 </div>
-                {
-                    statusButtons(status)
-                }
-
+               
             </div>
-           
-        </div>
-    )
+        )
+    } else {
+        return(
+            <></>
+        )
+    }
 }
 
 export default TodoDisplay
