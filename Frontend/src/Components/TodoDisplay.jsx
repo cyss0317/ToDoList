@@ -34,14 +34,14 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                 }
             setTodo(old => newTodo) 
             setTodos(old =>
+
                 old.map(oldTodo => {
                     if (oldTodo.id === id) {
-                        return (
-                            newTodo
-                        )
+                        return newTodo
+                    } else {
+                        return oldTodo
                     }
                 })
-
             )
         } else if (answer && e.target.value === "In Progress") {
             newTodo =
@@ -55,14 +55,14 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                 }
             setTodo(old => newTodo)
             setTodos(old =>
+
                 old.map(oldTodo => {
-                    if (oldTodo.id === id) {
-                        return (
-                            newTodo
-                        )
+                    if(oldTodo.id === id ){
+                        return newTodo
+                    } else{
+                        return oldTodo
                     }
                 })
-                
             )
         } else if (answer && e.target.value === "Upcoming"){
             newTodo =
@@ -75,14 +75,15 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                     tags: tags
                 }
             setTodo(old => newTodo)
-            setTodos( old => 
+            setTodos(old =>
+
                 old.map(oldTodo => {
-                    if(oldTodo.id === id){
-                        return(
-                            newTodo
-                        )
+                    if (oldTodo.id === id) {
+                        return newTodo
+                    } else {
+                        return oldTodo
                     }
-                })    
+                })
             )
         }
             console.log("newtodo", newTodo)

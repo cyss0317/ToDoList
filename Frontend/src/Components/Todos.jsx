@@ -16,6 +16,10 @@ const Todos = ({propTodos, title, status, setPropTodos}) => {
     const [newProgress, setNewProgress] = useState()
     const [todos, setTodos] = useState(propTodos)
     const [todo, setTodo] = useState({})
+    const modal = document.querySelector(`.modal-background-${status}`)
+    const textArea = document.querySelector(`.description-input-${status}`)
+    const textAreas = document.querySelectorAll(`#description-input`)
+
     window.todos = todos
     window.propTodos = propTodos
     let newTodo = ({
@@ -77,7 +81,7 @@ const Todos = ({propTodos, title, status, setPropTodos}) => {
         e.preventDefault()
         console.log("status when openModal", status)
         console.log(newTodo)
-        const modal = document.querySelector(`.modal-background-${status}`)
+
         modal.style.display = "block"
 
     }
@@ -90,36 +94,25 @@ const Todos = ({propTodos, title, status, setPropTodos}) => {
     window.newDone = newDone
     const createSubmit = (e, status) => {
         e.preventDefault()
-        //question, it wouldn't rerender after creation
-        
-        // console.log("newDone from submit",newDone)
-        // console.log("newProgress from submit",newProgress)
-        
         // debugger
         setTodos(old => [...old, newTodo])
         todoAPIUtil.createTodo(newTodo)
-
-        const modal = document.querySelector(`.modal-background-${status}`)
+        console.log(textArea)
+        debugger
+        textArea.innerHTML = ""
+        textArea.value = ""
         modal.style.display = "none"
-
     }
     const closeModal = e => {
-        const modal = document.querySelector(`.modal-background-${status}`)
         modal.style.display = "none"
-        // setNewDone()
-        // setNewProgress()
     }
 
-    // console.log("done",newDone)
-    // console.log("prgress",newProgress)
     if(todos !== undefined){
-
         return (
             <div className="todos-container">
                 <div className="title-addButton">
-    {/* it's fine rendering title */}
                     <h1 className="title">{title}</h1>
-                    <button onClick={e => openModal(e)} className="addTodo">+ Add new todo</button>
+                    <button onClick={e => openModal(e)} className="addTodo">+ Add new {title} todo</button>
                 </div>
                 {
                     propTodos.map(todo => (
@@ -135,7 +128,7 @@ const Todos = ({propTodos, title, status, setPropTodos}) => {
                         <form className="info-section" onSubmit={(e, status) => createSubmit(e, status)}>
                             {/* <label htmlFor="description">description</label> */}
                             <label htmlFor="descrition">Description</label>
-                            <textarea className="description-input" type="text" value={newDescription} 
+                            <textarea id="description-input" className={`description-input-${status}`} type="text" value={newDescription} 
                                 onChange={e => setDescriptionOnChange(e)}/>
                             
                             <label htmlFor="dueDate">Due date:  </label>
