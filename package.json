@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cyss0317/my-personal-todo-list1"
+    "url": "git+https://github.com/cyss0317/ToDoList.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cyss0317/my-personal-todo-list1/issues"
+    "url": "https://github.com/cyss0317/ToDoList/issues"
   },
-  "homepage": "https://github.com/cyss0317/my-personal-todo-list1#readme",
+  "homepage": "https://github.com/cyss0317/ToDoList#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "concurrently": "^6.3.0",
