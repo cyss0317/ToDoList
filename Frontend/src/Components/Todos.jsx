@@ -4,7 +4,7 @@ import TodoDisplay from "./TodoDisplay"
 import * as todoAPIUtil from "../util/todo_util"
 
 
-const Todos = ({propTodos, title, status, setPropTodos, number}) => {
+const Todos = ({propTodos, title, status, setPropTodos, number, setProgress, setUnDones, setDones}) => {
     const currentDate = new Date();
     const todayMonth = currentDate.getUTCMonth() + 1;
     const todayDay = currentDate.getUTCDate();
@@ -58,7 +58,8 @@ const Todos = ({propTodos, title, status, setPropTodos, number}) => {
                 </div>
                 {
                     propTodos.map(todo => (
-                        <TodoDisplay todos={todos} setTodos={setPropTodos} status={status} key={todo._id} id={todo._id} propTodo={todo} />
+                        <TodoDisplay setProgress={setProgress} setDone={setDones} setUndones={setUnDones} todos={todos}
+                         setTodos={setPropTodos} status={status} key={todo._id} id={todo._id} propTodo={todo} />
                     ))
                 }
                 <div onClick={e => closeModal(e)} id="modal-background" className={`modal-background-${status}`} style={{ display: "none" }}>

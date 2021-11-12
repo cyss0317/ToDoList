@@ -3,7 +3,7 @@ import {useState, useEffect} from "react"
 import * as todoAPIUtil from "../util/todo_util"
 
 
-const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
+const TodoDisplay = ({props, propTodo, id, status, todos, setTodos, setDones, setUnDones, setProgress}) => {
     const [todo, setTodo] = useState(propTodo)
     const [tags, setTags] = useState(propTodo.tags);
     const [tag, setTag] = useState("");
@@ -17,7 +17,6 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
  
         if(!answer) return ;
         if(answer && e.target.value === "Done"){
-            
             newTodo =
                 {
                     id: id,
@@ -34,6 +33,15 @@ const TodoDisplay = ({props, propTodo, id, status, todos, setTodos}) => {
                     return todo
                 }
             })
+            const newUndones = todos.map(todo => {
+                if (todo.id === id) {
+
+                } else {
+                    return todo
+                }
+            })
+
+
             setTodo(old => newTodo) 
             setTodos(old =>newTodos)
         } else if (answer && e.target.value === "In Progress") {
