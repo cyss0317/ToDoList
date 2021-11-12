@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Todo = require("../../Model/TodosModel");
+const Todo = require("../../model/TodosModel");
 const validateRegisterTodo = require("../../validation/todo_validation");
 
 router.get("/test", (req, res) => {

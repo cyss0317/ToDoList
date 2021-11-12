@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const app = express();
 const mongoose = require("mongoose");
 const db = require("./config/keys").mongoURI;
-const Todos = require("./Model/TodosModel")
 const todos = require("./routes/api/todos");
 const path = require('path');
 
