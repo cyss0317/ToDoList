@@ -1,8 +1,7 @@
 node_modules/
-node/
 
-**/Frontend/node_modules/**
-**/Frontend/node//**
+
+
 config/keys.js
 config/keys_dev.js
 
